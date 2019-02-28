@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Isotype",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "values": [{"value": 14}]
+    },
+    {
+      "name": "source_1",
+      "transform": [
+        {"type": "sequence", "start": 1, "stop": {"signal": "data('source')[0]['value']+1"}, "as": "id"}
+      ]
+    },
+    {
+      "name": "data",
+      "source": "source_1",
+      "transform": [
+        {"type": "formula", "expr": "ceil (datum.id/grid_size)", "as": "row"},
+        {"type": "formula", "expr": "datum.id - datum.row*grid_size", "as": "col"}
+      ]
+    }
+  ],
+
+ "signals": [ {"name": "grid_size", "value": 6} ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "domain": {"data": "data", "field": "col"},
+      "range":  "width",
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "domain": {"data": "data", "field": "row"},
+      "range": "height",
+      "padding": 0.5
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "data"},
+      "encode": {
+        "update": {
+          "shape": { "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z" },
+          "fill": {"value": "#8f3278"},
+          "tooltip": { "signal": "datum" },
+          "x": {"scale": "x", "field": "col"},
+          "y": {"scale": "y", "field": "row"},
+          "size": {"value": 90}
+        }
+      }
+    }
+  ]
+
+}

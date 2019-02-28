@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Gridplot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "signals": [ {"name": "grid_size", "value": 10} ],
+
+  "data": [
+    {
+      "name": "source",
+      "values": [{"value": 32}]
+    },
+    {
+      "name": "layout",
+      "transform": [
+        {"type": "sequence", "start": 1, "stop": {"signal": "grid_size*grid_size+1"}},
+        {"type": "formula", "expr": "ceil (datum.data/grid_size)", "as": "row"},
+        {"type": "formula", "expr": "datum.data - (datum.row-1)*grid_size", "as": "col"},
+        {"type": "formula", "expr": "datum.data > data('source')[0].value", "as": "_state"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {"data": "layout", "field": "col"},
+      "range":  "width"
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {"data": "layout", "field": "row", "sort": {"order": "descending"}},
+      "range": "height"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "layout"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "col"},
+          "y": {"scale": "y", "field": "row"},
+          "width": {"scale": "x", "band" : 1},
+          "height": {"scale": "y", "band" : 1},
+          "fill": [
+            {"test": "datum._state", "value": "#E9EAED"},
+            {"value": "#115DAA"}],
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 2},
+          "tooltip": { "signal": "datum" }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height / 2"},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "text": {"signal": "format(datum.value, '.0f') + '%'"},
+          "fontSize": {"value": 60},
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    }
+  ]
+
+}

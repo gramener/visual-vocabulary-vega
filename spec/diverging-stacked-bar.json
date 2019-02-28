@@ -1,0 +1,129 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Diverging stacked bar",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source_data",
+      "url": "./spec/data/diverging-stacked-bar.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "data_lookup",
+      "values": [
+        {"key": "Not at all", "value": -1},
+        {"key": "Small degree", "value": -1},
+        {"key": "Moderate Degree", "value": -0.5},
+        {"key": "High Degree", "value": 0},
+        {"key": "Very High Degree", "value": 0}
+      ]
+    },
+    {
+      "name": "data_table",
+      "source": "source_data",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "data_lookup",
+          "key": "key",
+          "values": ["value"],
+          "fields": ["type"],
+          "as": ["type_index"]
+        },
+        {
+          "type": "formula",
+          "expr": "-datum.type_index * datum.percentage",
+          "as": "_div_percentage"
+        },
+        {
+          "type": "window",
+          "groupby": ["question"],
+          "frame": [null, null],
+          "ops": ["sum"],
+          "fields": ["_div_percentage"],
+          "as": ["offset"]
+        },
+        {
+          "type": "stack",
+          "groupby": ["question"],
+          "field": "percentage",
+          "as": ["sump_start", "sump_end"]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.sump_start - datum.offset",
+          "as": "sump_start"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.sump_end - datum.offset",
+          "as": "sump_end"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "rect",
+      "from": {"data": "data_table"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "sump_end"},
+          "x2": {"scale": "x", "field": "sump_start"},
+          "y": {"scale": "y", "field": "question"},
+          "height": {"scale": "y", "band": true},
+          "fill": {"scale": "color", "field": "type"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {"data": "data_table", "fields": ["sump_start", "sump_end"]},
+      "range": "width",
+      "nice": true
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {"data": "data_table", "field": "question"},
+      "range": "height",
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["Not at all", "Small degree", "Moderate Degree", "High Degree", "Very High Degree"],
+      "range": ["#dea221", "#feba27", "#ababab", "#74a9cf", "#0f7b9e"]
+    }
+  ],
+
+  "axes": [
+    {
+      "title": "Percentage",
+      "scale": "x",
+      "grid": true,
+      "ticks": false,
+      "domain": false,
+      "orient": "bottom",
+      "format": ".0%"
+    },
+    {
+      "domain": false,
+      "offset": 5,
+      "ticks": false,
+      "scale": "y",
+      "orient": "left"
+    }
+  ]
+}

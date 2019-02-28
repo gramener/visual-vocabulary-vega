@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Scaled cartogram (value)",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+
+  "data": [
+    {
+      "name": "states",
+      "url": "./spec/data/us-10m.json",
+      "format": {"type": "topojson", "feature": "states"}
+    },
+    {
+      "name": "data",
+      "url": "./spec/data/parallel-coordinates.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "states", "key": "id",
+          "fields": ["id"], "as": ["geo"]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.geo"
+        },
+        {
+          "type": "formula", "as": "centroid",
+          "expr": "geoCentroid('projection', datum.geo)"
+        }
+      ]
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa",
+      "scale": 500,
+      "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {"data": "data", "field": "Burlgary Rate"},
+      "range": ["#080A10", "#999999", "#E94E25"]
+    },
+    {
+      "name": "size",
+      "domain": {"data": "data", "field": "Burlgary Rate"},
+      "zero": false,
+      "range": [10, 1000]
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "circles",
+      "type": "symbol",
+      "from": {"data": "data"},
+      "encode": {
+        "enter": {
+          "size": {"scale": "size", "field": "Burlgary Rate"},
+          "fill": {"scale": "color", "field": "Burlgary Rate"},
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 1.5},
+          "x": {"field": "centroid[0]"},
+          "y": {"field": "centroid[1]"},
+          "tooltip": {"signal": "datum"}
+        }
+      },
+      "transform": [
+        {
+          "type": "force",
+          "static": true,
+          "forces": [
+            {"force": "collide", "radius": {"expr": "1 + sqrt(datum.size/3.141)"}},
+            {"force": "x", "x": "datum.centroid[0]"},
+            {"force": "y", "y": "datum.centroid[1]"}
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {"data": "circles"},
+      "encode": {
+        "update": {
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "fill": {"value": "white"},
+          "fontSize": {"value": 8},
+          "fontWeight": {"value": "bold"},
+          "text": {"signal": "upper(substring(datum.datum.State, 0, 2))"},
+          "x": {"field": "x"},
+          "y": {"field": "y"}
+        }
+      }
+    }
+  ]
+}

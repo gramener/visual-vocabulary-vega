@@ -1,0 +1,114 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Violin plot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/violin-plot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table_1",
+      "source": "source",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [],
+          "ops": ["q1", "q3", "median", "min", "max"],
+          "fields": ["Avg Salary", "Avg Salary", "Avg Salary", "Avg Salary", "Avg Salary"],
+          "as": [
+            "lower_box",
+            "upper_box",
+            "mid_box",
+            "lower_whisker",
+            "upper_whisker"
+          ]
+        }]
+    },
+    {
+      "name": "density",
+      "transform": [
+        {
+          "type": "density",
+          "distribution": {
+            "function": "kde",
+            "from": "source",
+            "field": "Avg Salary"
+          }
+        },
+        {
+          "type": "stack",
+          "groupby": ["value"],
+          "field": "density",
+          "offset": "center",
+          "as": ["x0", "x1"]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "linear",
+      "domain": {"data": "source", "field": "Avg Salary"},
+      "range": "height"
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "range": "width",
+      "domain": {"data": "density", "field": "density"}
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "area",
+      "from": {"data": "density"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#e94e25"},
+          "fillOpacity": {"value": 0.3},
+          "stroke": {"value": "#e94e25"},
+          "orient": {"value": "horizontal"},
+          "y": {"scale": "yscale", "field": "value"},
+          "x": {"scale": "xscale", "field": "x0"},
+          "x2": {"scale": "xscale", "field": "x1"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "xc": {"signal": "width/2"},
+          "width": {"value": 0.1},
+          "y": {"scale": "yscale", "field": "lower_whisker"},
+          "y2": {"scale": "yscale", "field": "upper_whisker"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#555555"},
+          "xc": {"signal": "width/2"},
+          "width": {"value": 10},
+          "y": {"scale": "yscale", "field": "lower_box"},
+          "y2": {"scale": "yscale", "field": "upper_box"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

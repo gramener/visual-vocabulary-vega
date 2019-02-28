@@ -1,0 +1,113 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Paired bar",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/paired-column.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": {"data": "table", "field": "Region"},
+      "range": "height",
+      "padding": 0.2
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "domain": {"data": "table", "field": "Sales"},
+      "range": "width",
+      "round": true,
+      "zero": true,
+      "nice": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "Year"},
+      "range": ["#8F3278", "#D7C0D0"]
+    }
+  ],
+
+  "axes": [
+    {"orient": "left", "scale": "yscale", "labelAngle": 0, "offset": 35,
+     "domain": false, "ticks": false},
+    {"orient": "bottom", "scale": "xscale", "format": "s", "labelFlush": true, "labelOverlap": true}
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+
+      "from": {
+        "facet": {
+          "data": "table",
+          "name": "facet",
+          "groupby": "Region"
+        }
+      },
+
+      "encode": {
+        "enter": {
+          "y": {"scale": "yscale", "field": "Region"}
+        }
+      },
+
+      "signals": [
+        {"name": "height", "update": "bandwidth('yscale')"}
+      ],
+
+      "scales": [
+        {
+          "name": "pos",
+          "type": "band",
+          "range": "height",
+          "domain": {"data": "facet", "field": "Year", "sort": true}
+        }
+      ],
+
+      "marks": [
+        {
+          "name": "bars",
+          "from": {"data": "facet"},
+          "type": "rect",
+          "encode": {
+            "enter": {
+              "yc": {"scale": "pos", "field": "Year"},
+              "height": {"scale": "pos", "band": 0.8},
+              "x": {"scale": "xscale", "field": "Sales"},
+              "x2": {"scale": "xscale", "value": 0},
+              "fill": {"scale": "color", "field": "Year"},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {"data": "bars"},
+          "encode": {
+            "enter": {
+              "x": {"value": -3},
+              "yc": {"field": "y", "offset": {"field": "height", "mult": 0.5}},
+              "align": {"value": "right"},
+              "fontSize": {"value": 10},
+              "baseline": {"value": "middle"},
+              "text": {"field": "datum.Year"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

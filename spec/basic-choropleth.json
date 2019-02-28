@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Basic choropleth (rate/ratio)",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "data",
+      "url": "./spec/data/parallel-coordinates.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "states",
+      "url": "./spec/data/us-10m.json",
+      "format": {"type": "topojson", "feature": "states"},
+      "transform": [
+        { "type": "lookup", "from": "data", "key": "id", "fields": ["id"], "values": ["Burlgary Rate"] }
+      ]
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa",
+      "scale": 500,
+      "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {"data": "data", "field": "Burlgary Rate"},
+      "range": ["#080A10", "#999999", "#E94E25"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "states"},
+      "encode": {
+        "update": {
+          "tooltip": {"signal": "format(datum['Burlgary Rate'], '0.1%')"},
+          "fill": {"scale": "color", "field": "Burlgary Rate"}
+          }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    }
+  ]
+}

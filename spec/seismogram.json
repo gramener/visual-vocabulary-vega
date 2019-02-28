@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Seismogram",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/column-line-timeline.csv",
+      "format": {"type": "csv", "parse": {"Order Date": "date:'%Y %b'"}}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "time",
+      "domain": {"data": "table", "field": "Order Date"},
+      "range": "height"
+    },
+    {
+      "name": "xscale",
+      "domain": {"data": "table", "field": "Sales"},
+      "nice": true,
+      "range": "width"
+    }
+  ],
+
+  "axes": [
+    { "orient": "left", "scale": "yscale", "format": "%Y", "labelOverlap": true,
+      "tickCount": "year", "domain": false, "ticks": false }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "xc": {"signal": "width/2"},
+          "width": {"scale": "xscale", "field": "Sales"},
+          "height": {"value": 5},
+          "yc": {"scale": "yscale", "field": "Order Date"},
+          "fill": {"value": "#268031"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+
+}

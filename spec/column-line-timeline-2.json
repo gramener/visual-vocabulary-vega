@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Column + line timeline",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/column-line-timeline.csv",
+      "format": {"type": "csv", "parse": {"Order Date": "date:'%Y %b'"}}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "time",
+      "domain": {"data": "table", "field": "Order Date"},
+      "range": "width",
+      "padding": 10
+    },
+    {
+      "name": "yscale",
+      "domain": {"data": "table", "field": "Sales"},
+      "nice": true,
+      "range": "height"
+    },
+    {
+      "name": "yscale2",
+      "domain": {"data": "table", "field": "Profit"},
+      "nice": true,
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "format": "%b '%y", "labelOverlap": true, "ticks": false, "domain": false,
+      "title": "Order Date"},
+    { "orient": "left", "scale": "yscale", "format": "s", "title": "Sales" },
+    { "orient": "right", "scale": "yscale2",  "format": "s", "title": "Profit" }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "xc": {"scale": "xscale", "field": "Order Date"},
+          "width": {"value": 10},
+          "y": {"scale": "yscale", "field": "Sales"},
+          "y2": {"scale": "yscale", "value": 0},
+          "fill": {"value": "#268031"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "Order Date"},
+          "y": {"scale": "yscale2", "field": "Profit"},
+          "stroke": {"value": "black"}
+        }
+      }
+    }
+  ]
+
+}

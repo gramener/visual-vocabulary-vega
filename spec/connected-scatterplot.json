@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Connected scatterplot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/connected-scatterplot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table_1",
+      "source": "source",
+      "transform": [{"type": "extent", "field": "Year", "signal": "xextent"}]
+    },
+    {
+      "name": "label",
+      "source": "table_1",
+      "transform": [{"type": "filter", "expr": "datum.Year == xextent[0] || datum.Year == xextent[1]"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Bottom 90%"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Top 0\\.01%"},
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "Bottom 90%"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "Top 0.01%"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "line",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "interpolate": {"value": "cardinal"},
+          "x": {"scale": "x", "field": "Bottom 90%"},
+          "y": {"scale": "y", "field": "Top 0\\.01%"},
+          "stroke": {"value": "#82603b"},
+          "strokeWidth": {"value": 2}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Bottom 90%"},
+          "y": {"scale": "y", "field": "Top 0\\.01%"},
+          "fill": {"value": "#82603b"},
+          "size": {"value": 30},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "label"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Bottom 90%"},
+          "y": {"scale": "y", "field": "Top 0\\.01%", "offset": -4},
+          "text": {"field": "Year"},
+          "fill": {"value": "#82603b"},
+          "align": {"value": "center"}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Diverging Bar",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/diverging-bar.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "signals": [
+    {
+      "name": "spec_values",
+      "value": {"y": "Sub-Category", "x": "Profit Ratio"},
+      "_comment": ">: Profit Ratio"
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": {
+        "data": "table", "field": {"signal": "spec_values.y"},
+        "sort": {"op": "median", "field": "Profit Ratio", "order": "descending"}
+      },
+      "range": "height",
+      "padding": 0.05,
+      "round": true
+    },
+    {
+      "name": "xscale",
+      "domain": {"data": "table", "field": {"signal": "spec_values.x"}},
+      "nice": true,
+      "range": "width"
+    },
+    {
+      "name": "colorscale",
+      "type": "sequential",
+      "domain": [-45, 0, 45],
+      "range": ["#dea221", "#dda732", "#ddac43", "#dcb154", "#dcb664", "#dbbb75", "#dbc086", "#dac597", "#dacaa7", "#d9cfb8", "#d9d4c8", "#d9d9d9", "#c2cfd3", "#acc5ce", "#97bcc8", "#83b3c3", "#6fabbe", "#5da2b8", "#4c9ab3", "#3b92ae", "#2b8aa8", "#1c82a3", "#0f7b9e"]
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "title": {"signal": "spec_values.x"}, "grid": true, "ticks": false, "domain": false},
+    { "orient": "left", "scale": "yscale", "ticks": false, "domain": false, "labelPadding": 5 }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": {"signal": "spec_values.x"}},
+          "x2": {"scale": "xscale", "value": 0},
+          "height": {"scale": "yscale", "band": 0.9},
+          "y": {"scale": "yscale", "field": {"signal": "spec_values.y"}},
+          "fill": {"scale": "colorscale", "field": {"signal": "spec_values.x"}},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

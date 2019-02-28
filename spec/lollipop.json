@@ -1,0 +1,70 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Standard bar charts display the ranks of values much more easily when sorted into order",
+  "title": "Lollipop",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/ordered-bar.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": {"data": "source", "field": "Region",
+        "sort": {"op": "median", "field": "Sales", "order": "descending"}},
+      "range": "height",
+      "padding": 0.8,
+      "round": true
+    },
+    {
+      "name": "xscale",
+      "domain": {"data": "source", "field": "Sales"},
+      "nice": true,
+      "range": "width"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "format": "s" },
+    { "orient": "left", "scale": "yscale" }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "y": {"scale": "yscale", "field": "Region"},
+          "height": {"scale": "yscale", "band": 1},
+          "x": {"scale": "xscale", "field": "Sales"},
+          "x2": {"scale": "xscale", "value": 0},
+          "fill": {"value": "#0f7b9e"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "y": {"scale": "yscale", "field": "Region", "offset": 4},
+          "x": {"scale": "xscale", "field": "Sales"},
+          "size": {"value": 500},
+          "shape": {"value": "circle"},
+          "fill": {"value": "#0f7b9e"}
+        }
+      }
+    }
+  ]
+
+}

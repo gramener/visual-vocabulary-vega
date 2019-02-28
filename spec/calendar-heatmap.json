@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Calendar heatmap",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/calendar-heatmap.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {"data": "source", "field": "Year"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {"data": "source", "field": "Month"},
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "sequential",
+      "domain": {"data": "source", "field": "Number"},
+      "range": ["#DFE4E8", "#268031"]
+    }
+  ],
+
+  "axes": [
+    { "scale": "x", "orient": "bottom" },
+    { "scale": "y", "orient": "left" }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Number"},
+          "x": {"scale": "x", "field": "Year"},
+          "width": {"scale": "x", "band": true},
+          "y": {"scale": "y", "field": "Month"},
+          "height": {"scale": "y", "band": true},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+
+}

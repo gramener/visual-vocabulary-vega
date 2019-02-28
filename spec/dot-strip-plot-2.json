@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Dot strip plot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/dot-strip-plot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Sales"},
+      "range": "width",
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Month of Order Date"},
+      "range": "height",
+      "padding": 0.5
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "format": "s"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "offset": 10
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Sales"},
+          "y": {"scale": "y", "field": "Month of Order Date"},
+          "size": {"value": 100},
+          "shape": {"value": "circle"},
+          "opacity": {"value": 0.6},
+          "stroke": {"value": "#ffffff"},
+          "fill": {"value": "#e94e25"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

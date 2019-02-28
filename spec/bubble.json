@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Bubble",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/bubble.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Profit"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Sales"},
+      "range": "height"
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "round": true,
+      "nice": false,
+      "zero": true,
+      "domain": {"data": "source", "field": "Avg Discount"},
+      "range": [4, 361]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "Profit"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "Sales"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Profit"},
+          "y": {"scale": "y", "field": "Sales"},
+          "size": {"scale": "size", "field": "Avg Discount"},
+          "shape": {"value": "circle"},
+          "opacity": {"value": 0.7},
+          "stroke": {"value": "#ffffff"},
+          "fill": {"value": "#82603b"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "encode": {
+        "update": {
+          "x": {"value": 0},
+          "y": {"scale": "y", "value": 0},
+          "x2": {"field": {"group": "width"}}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "encode": {
+        "update": {
+          "y": {"value": 0},
+          "x": {"scale": "x", "value": "0"},
+          "y2": {"field": {"group": "height"}}
+        }
+      }
+    }
+  ]
+}

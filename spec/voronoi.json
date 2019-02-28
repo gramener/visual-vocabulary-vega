@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Voronoi",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/bullet.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "domain": [700000, 850000],
+      "nice": true,
+      "zero": false,
+      "range": "width"
+    },
+    {
+      "name": "yscale",
+      "domain": [400000, 900000],
+      "range": "height",
+      "nice": true,
+      "zero": false
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "points",
+      "type": "symbol",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "black"},
+          "size": {"value": 200},
+          "x": {"scale": "xscale", "field": "Sales"},
+          "y": {"scale": "yscale", "field": "Target"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "path",
+      "from": {"data": "points"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 2},
+          "fill": {"value": "#115DAA"},
+          "fillOpacity": {"value": 0.5}
+        }
+      },
+      "transform": [
+        {
+          "type": "voronoi",
+          "size": [{"signal": "width"}, {"signal": "height"}],
+          "x": "datum.x", "y": "datum.y"
+        }
+      ]
+    }
+  ]
+
+}

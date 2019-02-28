@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Candlestick",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/candlestick.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "time",
+      "domain": {"data": "table", "field": "date"},
+      "range": "width",
+      "padding": 10
+    },
+    {
+      "name": "yscale",
+      "domain": {"data": "table", "fields": ["open", "high", "low", "close"]},
+      "nice": true, "zero": false,
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale",  "labelFlush": true,
+      "labelOverlap": true, "domain": false, "ticks": false },
+    { "orient": "left", "scale": "yscale", "format": "s"}
+  ],
+
+  "marks": [
+    {
+      "type": "rule",
+      "from": {"data": "table"},
+      "encode": {
+        "update": {
+          "stroke": [
+            {"test": "datum.open > datum.close", "value": "#aaaaaa"},
+            {"value": "#268031"}
+          ],
+          "x": {"scale": "xscale", "field": "date"},
+          "y": {"scale": "yscale", "field": "low"},
+          "y2": {"scale": "yscale", "field": "high"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table"},
+      "encode": {
+        "update": {
+          "fill": [
+            {"test": "datum.open > datum.close", "value": "#aaaaaa"},
+            {"value": "#268031"}
+          ],
+          "xc": {"scale": "xscale", "field": "date"},
+          "width": {"value": 5},
+          "y": {"scale": "yscale", "field": "open"},
+          "y2": {"scale": "yscale", "field": "close"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

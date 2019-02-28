@@ -1,0 +1,111 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Cumulative curve",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/cumulative-curve.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table_1",
+      "source": "table",
+      "transform": [{"type": "extent", "field": "Months since First Purchase", "signal": "xextent"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "range": "width",
+      "domain": {"data": "table", "field": "Months since First Purchase"}
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "table", "field": "Running Sum of Sales"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "Region"},
+      "range": ["#E94E25", "#262730"]
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "x"},
+    {"orient": "left", "scale": "y"}
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "table",
+          "groupby": "Region"
+        }
+      },
+
+      "data": [
+        {
+          "name": "label",
+          "source": "series",
+          "transform": [{"type": "filter", "expr": "datum['Months since First Purchase'] == xextent[1]"}]
+        }
+      ],
+
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "Months since First Purchase"},
+              "y": {"scale": "y", "field": "Running Sum of Sales"},
+              "stroke": {"scale": "color", "field": "Region"},
+              "strokeWidth": {"value": 2}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "label"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Months since First Purchase"},
+              "y": {"scale": "y", "field": "Running Sum of Sales"},
+              "fill": {"scale": "color", "field": "Region"},
+              "size": {"value": 30},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {"data": "label"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Months since First Purchase", "offset": 8},
+              "y": {"scale": "y", "field": "Running Sum of Sales", "offset": 4},
+              "text": {"signal": "format(datum['Running Sum of Sales'], ',.0f')"},
+              "fill": {"scale": "color", "field": "Region"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

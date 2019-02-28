@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Column",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/column-line-timeline.csv",
+      "format": {"type": "csv", "parse": {"Order Date": "date:'%Y %b'"}}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "time",
+      "domain": {"data": "table", "field": "Order Date"},
+      "range": "width",
+      "padding": 10
+    },
+    {
+      "name": "yscale",
+      "domain": {"data": "table", "field": "Sales"},
+      "nice": true,
+      "range": "height"
+    }
+  ],
+
+  "axes": [ { "orient": "left", "scale": "yscale", "format": "s"} ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "xc": {"scale": "xscale", "field": "Order Date"},
+          "width": {"value": 10},
+          "y": {"scale": "yscale", "field": "Sales"},
+          "y2": {"scale": "yscale", "value": 0},
+          "fill": {"value": "#268031"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "Order Date"},
+          "y": {"signal": "height", "offset": 20},
+          "text": [
+            {
+              "test": "quarter(datum['Order Date']) == 2",
+              "signal": "timeFormat(datum['Order Date'], '%Y')"
+            },
+            {"value": ""}
+          ]
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "Order Date"},
+          "y": {"signal": "height", "offset": 10},
+          "text": {"signal": "'Q' + quarter(datum['Order Date'])"},
+          "align": {"value": "center"},
+          "fontSize": {"value": 8}
+        }
+      }
+    }
+  ]
+
+}

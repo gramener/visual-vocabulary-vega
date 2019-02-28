@@ -1,0 +1,10 @@
+type,color,desc
+Deviation,#dea221,"Emphasise variations (+/-) from a fixed reference point. Typically the reference point is zero but it can also be a target or a long-term average. Can also be used to show sentiment (positive/neutral/negative)"
+Correlation,#82603B,"Show the relationship between two or more variables. Be mindful that, unless you tell them otherwise, many readers will assume the relationships you show them to be causal (i.e. one causes the other)"
+Ranking,#0f7b9e,"Use where an item's position in an ordered list is more important than its absolute or relative value. Don't be afraid to highlight the points of interest."
+Distribution,#e94e25,"Show values in a dataset and how often they occur. The shape (or skew) of a distribution can be a memorable way of highlighting the lack of uniformity or equality in the data"
+Change-over-Time,#268031,"Give emphasis to changing trends. These can be short (intra-day) movements or extended series traversing decades or centuries: Choosing the correct time period is important to provide suitable context for the reader"
+Magnitude,#8f3278,"Show size comparisons. These can be relative (just being able to see larger/bigger) or absolute (need to see fine differences). Usually these show a 'counted' number (for example, barrels, dollars or people) rather than a calculated rate or per cent"
+Part-to-whole,#074293,"Show how a single entity can be broken down into its component elements. If the reader's interest is solely in the size of the components, consider a magnitude-type chart instead"
+Spatial,#8a8c83,"Used only when precise locations or geographical patterns in data are more important to the reader than anything else."
+Flow,#9bb259,"Show the reader volumes or intensity of movement between two or more states or conditions. These might be logical sequences or geographical locations"

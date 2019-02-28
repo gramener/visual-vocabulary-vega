@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Circle timeline",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/area-chart.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "domain": {"data": "source", "field": "Date"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "padding": 0.5,
+      "domain": {"data": "source", "field": "Category"},
+      "range": "height"
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "domain": {"data": "source", "field": "Sales"},
+      "zero": false,
+      "range": [10, 1000]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": false,
+      "domain": false,
+      "orient": "bottom",
+      "format": "%Y %b",
+      "labelFlush": true, "labelOverlap": true, "ticks": false
+    },
+    {
+      "scale": "y",
+      "grid": false,
+      "domain": false,
+      "orient": "left"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "source",
+          "groupby": "Category"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Date"},
+              "y": {"scale": "y", "field": "Category"},
+              "stroke": {"value": "#999999"},
+              "strokeWidth": {"value": 2},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Date"},
+              "y": {"scale": "y", "field": "Category"},
+              "fill": {"value": "#268031"},
+              "stroke": {"value": "#268031"},
+              "fillOpacity": {"value": 0.4},
+              "size": {"scale": "size", "field": "Sales"},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Arc",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/ordered-bar.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type": "pie",
+          "field": "Sales",
+          "startAngle": -1.57,
+          "endAngle": 1.57,
+          "sort": false
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "source": "table",
+      "transform": [
+        {"type": "aggregate", "groupby": [], "ops": ["sum"], "fields": ["Sales"], "as": ["total"] }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "Region"},
+      "range": ["#96cbff", "#1A8CFF", "#115DAA", "#082A4D"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "arc",
+      "from": {"data": "table"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Region"},
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height"},
+          "startAngle": {"field": "startAngle"},
+          "endAngle": {"field": "endAngle"},
+          "padAngle": {"value": "0.04"},
+          "innerRadius": {"signal": "width / 3"},
+          "outerRadius": {"signal": "width / 2"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "summary"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height - 20"},
+          "fill": {"value": "#000"},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "text": {"signal": "format(datum.total, '.0s') + ' Seats'"},
+          "fontSize": {"value": 28},
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    }
+  ]
+}

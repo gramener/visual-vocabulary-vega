@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Proportional symbol (count/magnitude)",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "states",
+      "url": "./spec/data/us-10m.json",
+      "format": {"type": "topojson", "feature": "states"}
+    },
+    {
+      "name": "data",
+      "url": "./spec/data/parallel-coordinates.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "states", "key": "id",
+          "fields": ["id"], "as": ["geo"]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.geo"
+        },
+        {
+          "type": "formula", "as": "centroid",
+          "expr": "geoCentroid('projection', datum.geo)"
+        }
+      ]
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa",
+      "scale": 500,
+      "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "size",
+      "domain": [0, 50, 100],
+      "range": [10, 200, 1000]
+    },
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {"data": "data", "field": "Burlgary Rate"},
+      "range": ["#080A10", "#999999", "#E94E25"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "states"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#c9c9c9"}
+        }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    },
+    {
+      "name": "circles",
+      "type": "symbol",
+      "from": {"data": "data"},
+      "encode": {
+        "update": {
+          "size": {"scale": "size", "field": "Burlgary Rate"},
+          "fill": {"scale": "color", "field": "Burlgary Rate"},
+          "fillOpacity": {"value": 0.8},
+          "stroke": {"value": "#080A10"},
+          "x": {"field": "centroid[0]"},
+          "y": {"field": "centroid[1]"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

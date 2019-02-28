@@ -1,0 +1,11 @@
+Department,Color,Year,Sales
+Tools,False,2016,91303.0
+Tools,False,2017,85144.0
+Sports,False,2016,94912.0
+Sports,False,2017,80557.0
+Home,False,2016,91107.0
+Home,False,2017,87179.0
+Shoes,True,2016,88651.0
+Shoes,True,2017,92840.0
+Baby,True,2016,79577.0
+Baby,True,2017,90282.0

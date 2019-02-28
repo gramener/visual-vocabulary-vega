@@ -1,0 +1,177 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Radar",
+  "width": 350,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "signals": [
+    {"name": "containerSize", "update": "containerSize()"},
+    {"name": "radius", "update": "min(containerSize[0], containerSize[1]) / 2.7"},
+    {"name": "radiusRange", "update": "[0, radius]"}
+  ],
+
+  "data": [
+    {
+      "name": "cars",
+      "url": "./spec/data/radar.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "folded",
+      "source": "cars",
+      "transform": [
+        {
+          "type": "fold",
+          "fields": [
+            "city-mpg",
+            "highway-mpg",
+            "price",
+            "horsepower",
+            "cylinders"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fields",
+      "source": "folded",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["key"],
+          "fields": ["value", "value"],
+          "ops": ["min", "max"]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "angle",
+      "type": "point",
+      "range": [6.28,0],
+      "padding": 0.5,
+      "domain": {"data": "fields","field": "key"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "cars","field": "body","sort": true},
+      "range": ["#8f3278", "#e94e25", "#222222"]
+    },
+    {
+      "name": "city-mpg",
+      "type": "linear",
+      "range": {"signal": "radiusRange"},
+      "zero": true,
+      "nice": true,
+      "domain": {"data": "cars","field": "city-mpg"}
+    },
+    {
+      "name": "highway-mpg",
+      "type": "linear",
+      "range": {"signal": "radiusRange"},
+      "zero": true,
+      "nice": true,
+      "domain": {"data": "cars","field": "highway-mpg"}
+    },
+    {
+      "name": "price",
+      "type": "linear",
+      "range": {"signal": "radiusRange"},
+      "zero": true,
+      "nice": true,
+      "domain": {"data": "cars","field": "price"}
+    },
+    {
+      "name": "horsepower",
+      "type": "linear",
+      "range": {"signal": "radiusRange"},
+      "zero": true,
+      "nice": true,
+      "domain": {"data": "cars","field": "horsepower"}
+    },
+    {
+      "name": "cylinders",
+      "type": "linear",
+      "range": {"signal": "radiusRange"},
+      "zero": true,
+      "nice": true,
+      "domain": {"data": "cars","field": "cylinders"}
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "data": "folded",
+          "name": "facet",
+          "groupby": "body"
+        }
+      },
+      "marks": [
+        {
+          "from": {"data": "fields"},
+          "type": "rule",
+          "encode": {
+            "update": {
+              "x": { "signal": "1 * radius * cos(scale('angle', datum.key))" },
+              "y": { "signal": "1 * radius * sin(scale('angle', datum.key))" },
+              "x2": {"value": 0},
+              "y2": {"value": 0},
+              "stroke": {"value": "#ccc"}
+            }
+          }
+        },
+        {
+          "from": {"data": "fields"},
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": { "signal": "1.2 * radius * cos(scale('angle', datum.key))" },
+              "y": { "signal": "1.2 * radius * sin(scale('angle', datum.key))" },
+              "baseline": {"value": "bottom"},
+              "text": {"field": "key"},
+              "align": {"value": "center"}
+            }
+          }
+        },
+        {
+          "from": {"data": "fields"},
+          "type": "text",
+          "encode": {
+            "update": {
+              "dy": {"value": 4},
+              "x": { "signal": "1.2 * radius * cos(scale('angle', datum.key))" },
+              "y": { "signal": "1.2 * radius * sin(scale('angle', datum.key))" },
+              "baseline": {"value": "top"},
+              "text": {"signal": "format(datum.max_value, '.1f')"},
+              "align": {"value": "center"},
+              "fill": {"value": "#888"}
+            }
+          }
+        },
+        {
+          "type": "line",
+          "from": {"data": "facet"},
+          "encode": {
+            "enter": {
+              "x": { "signal": "scale(datum.key, datum.value) * cos(scale('angle', datum.key))" },
+              "y": { "signal": "scale(datum.key, datum.value) * sin(scale('angle', datum.key))" },
+              "stroke": {"scale": "color", "field": "body"},
+              "strokeWidth": {"value": 5},
+              "interpolate": {"value": "linear-closed"},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+
+    }
+  ]
+}

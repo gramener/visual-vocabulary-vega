@@ -1,0 +1,162 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Scatterplot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/scatterplot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "_mean_x",
+      "source": "source",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [],
+          "ops": ["mean"],
+          "fields": ["OBESITY"],
+          "as": ["mean_x"]
+        }
+      ]
+    },
+    {
+      "name": "_mean_y",
+      "source": "source",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [],
+          "ops": ["mean"],
+          "fields": ["BA OR HIGHER"],
+          "as": ["mean_y"]
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "OBESITY"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "BA OR HIGHER"},
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "<==  % of obese people  ==>"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "<==  % of people with a BA degree or higher  ==>"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "text",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "OBESITY", "offset": -6},
+          "y": {"scale": "y", "field": "BA OR HIGHER", "offset": 14},
+          "text": {"field": "State"},
+          "opacity": {"value": 0.7},
+          "fontSize": {"value": 8}
+        }
+      }
+    },
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "OBESITY"},
+          "y": {"scale": "y", "field": "BA OR HIGHER"},
+          "shape": {"value": "circle"},
+          "strokeWidth": {"value": 1},
+          "size": {"value": 100},
+          "stroke": {"value": "#82603b"},
+          "strokeOpacity": {"value": 0.9},
+          "fill": {"value": "#82603b"},
+          "fillOpacity": {"value": 0.5},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {"data": "_mean_y"},
+      "encode": {
+        "update": {
+          "x": {"value": 0},
+          "y": {"scale": "y", "field": "mean_y"},
+          "x2": {"field": {"group": "width"}}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "_mean_y"},
+      "encode": {
+        "update": {
+          "x": {"field": {"group": "width"}},
+          "y": {"scale": "y", "field": "mean_y", "offset": -12},
+          "text": {"signal": "'Avg: ' + format(datum['mean_y'], '.1f') + '%'"},
+          "align": {"value": "right"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {"data": "_mean_x"},
+      "encode": {
+        "update": {
+          "y": {"value": 0},
+          "x": {"scale": "x", "field": "mean_x"},
+          "y2": {"field": {"group": "height"}}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "_mean_x"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "mean_x", "offset": 4},
+          "y": {"value": 10},
+          "text": {"signal": "'Avg: ' + format(datum['mean_x'], '.1f') + '%'"},
+          "align": {"value": "left"}
+        }
+      }
+    }
+  ]
+}

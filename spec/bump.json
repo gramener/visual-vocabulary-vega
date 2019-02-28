@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Bump",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/bump.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table_1",
+      "source": "source",
+      "transform": [{"type": "extent", "field": "Year", "signal": "xextent"}]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "range": "width",
+      "domain": {"data": "source", "field": "Year"}
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "range": "height",
+      "domain": {"data": "source", "field": "Ranking"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source", "field": "Country"},
+      "range": ["#dea221", "#6FB0C5", "#B3B3B3", "#0f7b9e", "#000000"]
+    }
+  ],
+  "axes": [
+    {"orient": "bottom", "scale": "x"},
+    {"orient": "left", "scale": "y"}
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {"name": "series", "data": "source", "groupby": "Country"}
+      },
+      "data": [
+        {
+          "name": "label",
+          "source": "series",
+          "transform": [{"type": "filter", "expr": "datum.Year == xextent[1]"}]
+        }
+      ],
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Year"},
+              "y": {"scale": "y", "field": "Ranking"},
+              "stroke": {"scale": "color", "field": "Country"},
+              "interpolate": {"value": "monotone"},
+              "strokeWidth": {"value": 2}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Year"},
+              "y": {"scale": "y", "field": "Ranking"},
+              "fill": {"scale": "color", "field": "Country"},
+              "size": {"value": 30},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {"data": "label"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Year", "offset": 8},
+              "y": {"scale": "y", "field": "Ranking", "offset": 4},
+              "text": {"field": "Country"},
+              "fill": {"scale": "color", "field": "Country"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

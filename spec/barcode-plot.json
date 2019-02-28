@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Barcode plot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/barcode-plot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Avg Sales"},
+      "range": "width",
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Sub-Category", "sort": true},
+      "range": "height",
+      "padding": 0.5
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "format": "s",
+      "labelFlush": true, "labelOverlap": true, "ticks": false
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "offset": 10
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "xc": {"scale": "x", "field": "Avg Sales"},
+          "yc": {"scale": "y", "field": "Sub-Category"},
+          "height": {"value": 15},
+          "width": {"value": 1},
+          "opacity": {"value": 0.6},
+          "fill": {"value": "#e94e25"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

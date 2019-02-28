@@ -1,0 +1,364 @@
+State,Sub-Category,Avg Sales
+Wisconsin,Supplies,21.81
+Wisconsin,Storage,111.91
+Wisconsin,Paper,154.72
+Wisconsin,Labels,29.64
+Wisconsin,Fasteners,1.81
+Wisconsin,Binders,45.26
+Wisconsin,Art,22.83
+Wisconsin,Appliances,387.22
+West Virginia,Paper,447.84
+West Virginia,Binders,44.32
+Washington,Supplies,53.7
+Washington,Storage,268.64
+Washington,Paper,56.25
+Washington,Labels,67.88
+Washington,Fasteners,17.55
+Washington,Envelopes,85.45
+Washington,Binders,211.12
+Washington,Art,31.29
+Washington,Appliances,115.84
+Virginia,Supplies,762.54
+Virginia,Storage,188.43
+Virginia,Paper,46.37
+Virginia,Labels,39.56
+Virginia,Fasteners,21.29
+Virginia,Envelopes,108.41
+Virginia,Binders,191.77
+Virginia,Art,46.12
+Virginia,Appliances,307.54
+Vermont,Storage,1564.29
+Vermont,Paper,46.1
+Vermont,Envelopes,2.04
+Vermont,Art,8.04
+Vermont,Appliances,542.94
+Utah,Supplies,44.4
+Utah,Storage,150.26
+Utah,Paper,104.75
+Utah,Labels,15.08
+Utah,Fasteners,5.0
+Utah,Binders,63.3
+Utah,Art,25.01
+Utah,Appliances,1089.75
+Texas,Supplies,237.72
+Texas,Storage,189.44
+Texas,Paper,47.51
+Texas,Labels,19.45
+Texas,Fasteners,13.85
+Texas,Envelopes,84.35
+Texas,Binders,59.1
+Texas,Art,33.37
+Texas,Appliances,51.23
+Tennessee,Supplies,48.9
+Tennessee,Storage,183.94
+Tennessee,Paper,40.78
+Tennessee,Labels,14.42
+Tennessee,Fasteners,28.89
+Tennessee,Envelopes,35.47
+Tennessee,Binders,177.52
+Tennessee,Art,25.68
+Tennessee,Appliances,191.5
+South Dakota,Supplies,25.5
+South Dakota,Labels,17.42
+South Dakota,Fasteners,6.54
+South Dakota,Binders,38.17
+South Dakota,Appliances,416.32
+South Carolina,Storage,285.25
+South Carolina,Paper,55.31
+South Carolina,Fasteners,21.7
+South Carolina,Envelopes,106.28
+South Carolina,Binders,64.39
+South Carolina,Art,17.72
+Rhode Island,Supplies,695.16
+Rhode Island,Storage,514.01
+Rhode Island,Paper,43.82
+Rhode Island,Binders,48.74
+Rhode Island,Art,49.25
+Rhode Island,Appliances,2.22
+Pennsylvania,Supplies,559.18
+Pennsylvania,Storage,240.5
+Pennsylvania,Paper,36.03
+Pennsylvania,Labels,26.01
+Pennsylvania,Fasteners,11.05
+Pennsylvania,Envelopes,68.56
+Pennsylvania,Binders,63.94
+Pennsylvania,Art,28.8
+Pennsylvania,Appliances,202.75
+Oregon,Supplies,19.19
+Oregon,Storage,284.45
+Oregon,Paper,45.4
+Oregon,Labels,150.35
+Oregon,Fasteners,10.01
+Oregon,Envelopes,24.76
+Oregon,Binders,20.08
+Oregon,Art,32.98
+Oregon,Appliances,89.29
+Oklahoma,Supplies,21.96
+Oklahoma,Storage,469.01
+Oklahoma,Paper,28.09
+Oklahoma,Labels,21.41
+Oklahoma,Envelopes,203.7
+Oklahoma,Binders,40.49
+Oklahoma,Art,14.73
+Oklahoma,Appliances,372.8
+Ohio,Supplies,68.4
+Ohio,Storage,196.34
+Ohio,Paper,38.33
+Ohio,Labels,12.45
+Ohio,Fasteners,14.64
+Ohio,Envelopes,46.83
+Ohio,Binders,26.26
+Ohio,Art,21.54
+Ohio,Appliances,209.02
+North Dakota,Storage,704.76
+North Dakota,Fasteners,7.41
+North Dakota,Binders,25.9
+North Dakota,Art,45.46
+North Carolina,Supplies,50.34
+North Carolina,Storage,214.88
+North Carolina,Paper,72.06
+North Carolina,Labels,25.49
+North Carolina,Fasteners,16.58
+North Carolina,Envelopes,71.86
+North Carolina,Binders,71.18
+North Carolina,Art,23.21
+North Carolina,Appliances,243.39
+New York,Supplies,102.55
+New York,Storage,274.78
+New York,Paper,56.38
+New York,Labels,28.68
+New York,Fasteners,13.64
+New York,Envelopes,55.53
+New York,Binders,181.32
+New York,Art,33.15
+New York,Appliances,301.74
+New Mexico,Supplies,14.78
+New Mexico,Storage,69.92
+New Mexico,Paper,89.4
+New Mexico,Labels,18.45
+New Mexico,Envelopes,28.4
+New Mexico,Binders,25.13
+New Mexico,Art,69.18
+New Jersey,Supplies,38.14
+New Jersey,Storage,518.79
+New Jersey,Paper,78.99
+New Jersey,Labels,13.27
+New Jersey,Fasteners,10.82
+New Jersey,Envelopes,38.42
+New Jersey,Binders,235.3
+New Jersey,Art,67.53
+New Jersey,Appliances,323.41
+New Hampshire,Supplies,27.93
+New Hampshire,Storage,168.65
+New Hampshire,Paper,71.22
+New Hampshire,Labels,20.58
+New Hampshire,Fasteners,14.82
+New Hampshire,Binders,254.49
+New Hampshire,Art,133.2
+New Hampshire,Appliances,33.28
+Nevada,Supplies,86.2
+Nevada,Storage,1325.85
+Nevada,Paper,45.4
+Nevada,Labels,14.94
+Nevada,Fasteners,4.71
+Nevada,Binders,699.6
+Nevada,Art,53.57
+Nevada,Appliances,47.99
+Nebraska,Supplies,16.9
+Nebraska,Storage,388.17
+Nebraska,Paper,41.6
+Nebraska,Labels,14.4
+Nebraska,Fasteners,19.21
+Nebraska,Binders,25.65
+Nebraska,Art,19.46
+Nebraska,Appliances,125.14
+Montana,Storage,326.11
+Montana,Paper,20.5
+Montana,Labels,14.62
+Montana,Binders,167.46
+Missouri,Supplies,2108.32
+Missouri,Storage,298.66
+Missouri,Paper,27.44
+Missouri,Labels,14.94
+Missouri,Envelopes,23.73
+Missouri,Binders,170.51
+Missouri,Art,119.81
+Missouri,Appliances,524.35
+Mississippi,Storage,143.95
+Mississippi,Paper,103.61
+Mississippi,Labels,14.62
+Mississippi,Fasteners,17.51
+Mississippi,Envelopes,45.68
+Mississippi,Binders,107.43
+Mississippi,Art,121.33
+Mississippi,Appliances,205.18
+Minnesota,Supplies,37.24
+Minnesota,Storage,242.7
+Minnesota,Paper,29.08
+Minnesota,Labels,26.84
+Minnesota,Fasteners,21.45
+Minnesota,Envelopes,15.28
+Minnesota,Binders,779.39
+Minnesota,Art,17.14
+Minnesota,Appliances,474.02
+Michigan,Supplies,37.24
+Michigan,Storage,257.81
+Michigan,Paper,64.86
+Michigan,Labels,110.07
+Michigan,Fasteners,21.9
+Michigan,Envelopes,62.0
+Michigan,Binders,530.74
+Michigan,Art,40.19
+Michigan,Appliances,270.26
+Massachusetts,Supplies,15.04
+Massachusetts,Storage,357.4
+Massachusetts,Paper,65.71
+Massachusetts,Labels,33.13
+Massachusetts,Fasteners,17.05
+Massachusetts,Binders,123.83
+Massachusetts,Art,20.55
+Massachusetts,Appliances,557.96
+Maryland,Supplies,25.02
+Maryland,Storage,506.0
+Maryland,Paper,79.95
+Maryland,Labels,28.58
+Maryland,Fasteners,13.66
+Maryland,Envelopes,168.58
+Maryland,Binders,230.36
+Maryland,Art,36.14
+Maryland,Appliances,264.86
+Maine,Paper,259.74
+Maine,Binders,19.05
+Maine,Appliances,101.96
+Louisiana,Supplies,1665.62
+Louisiana,Storage,402.56
+Louisiana,Paper,20.74
+Louisiana,Labels,11.07
+Louisiana,Envelopes,31.15
+Louisiana,Binders,104.75
+Louisiana,Art,64.75
+Louisiana,Appliances,17.34
+Kentucky,Supplies,28.77
+Kentucky,Storage,344.46
+Kentucky,Paper,81.43
+Kentucky,Labels,60.57
+Kentucky,Fasteners,19.02
+Kentucky,Envelopes,26.34
+Kentucky,Binders,167.99
+Kentucky,Art,29.23
+Kentucky,Appliances,166.95
+Kansas,Supplies,357.93
+Kansas,Storage,196.84
+Kansas,Paper,101.0
+Kansas,Labels,18.9
+Kansas,Fasteners,12.02
+Kansas,Binders,203.97
+Kansas,Art,40.68
+Kansas,Appliances,81.96
+Iowa,Storage,13.48
+Iowa,Paper,45.12
+Iowa,Fasteners,45.92
+Iowa,Envelopes,6.7
+Iowa,Binders,31.0
+Iowa,Art,48.86
+Indiana,Storage,274.7
+Indiana,Paper,69.61
+Indiana,Labels,55.24
+Indiana,Fasteners,4.23
+Indiana,Envelopes,127.08
+Indiana,Binders,211.15
+Indiana,Art,32.43
+Indiana,Appliances,416.02
+Illinois,Supplies,25.45
+Illinois,Storage,193.2
+Illinois,Paper,57.6
+Illinois,Labels,17.3
+Illinois,Fasteners,10.87
+Illinois,Envelopes,48.01
+Illinois,Binders,56.73
+Illinois,Art,25.14
+Illinois,Appliances,48.74
+Idaho,Storage,477.15
+Idaho,Paper,43.22
+Idaho,Binders,14.33
+Idaho,Appliances,227.84
+Georgia,Supplies,19.76
+Georgia,Storage,492.09
+Georgia,Paper,95.39
+Georgia,Labels,34.99
+Georgia,Fasteners,7.56
+Georgia,Envelopes,55.82
+Georgia,Binders,486.35
+Georgia,Art,30.98
+Georgia,Appliances,381.35
+Florida,Supplies,152.56
+Florida,Storage,296.77
+Florida,Paper,47.56
+Florida,Labels,21.43
+Florida,Fasteners,9.85
+Florida,Envelopes,23.44
+Florida,Binders,55.08
+Florida,Art,24.51
+Florida,Appliances,197.69
+District of Columbia,Paper,24.07
+District of Columbia,Binders,9.64
+District of Columbia,Art,28.33
+Delaware,Storage,597.06
+Delaware,Paper,36.73
+Delaware,Labels,14.83
+Delaware,Fasteners,26.18
+Delaware,Envelopes,74.81
+Delaware,Binders,152.13
+Delaware,Art,48.67
+Delaware,Appliances,70.21
+Connecticut,Supplies,28.72
+Connecticut,Storage,220.75
+Connecticut,Paper,65.68
+Connecticut,Labels,11.14
+Connecticut,Envelopes,10.86
+Connecticut,Binders,26.56
+Connecticut,Art,23.96
+Connecticut,Appliances,295.84
+Colorado,Supplies,280.68
+Colorado,Storage,260.55
+Colorado,Paper,46.49
+Colorado,Labels,8.98
+Colorado,Fasteners,11.13
+Colorado,Envelopes,15.12
+Colorado,Binders,18.18
+Colorado,Art,19.15
+Colorado,Appliances,151.92
+California,Supplies,365.6
+California,Storage,281.95
+California,Paper,57.99
+California,Labels,34.93
+California,Fasteners,11.42
+California,Envelopes,70.38
+California,Binders,103.16
+California,Art,33.31
+California,Appliances,257.19
+Arkansas,Storage,215.0
+Arkansas,Paper,67.13
+Arkansas,Labels,7.31
+Arkansas,Fasteners,21.34
+Arkansas,Envelopes,103.9
+Arkansas,Binders,288.98
+Arkansas,Art,13.05
+Arizona,Supplies,70.63
+Arizona,Storage,123.35
+Arizona,Paper,78.73
+Arizona,Labels,9.15
+Arizona,Fasteners,16.87
+Arizona,Envelopes,30.65
+Arizona,Binders,62.44
+Arizona,Art,99.23
+Arizona,Appliances,129.07
+Alabama,Supplies,242.26
+Alabama,Storage,416.47
+Alabama,Paper,110.38
+Alabama,Labels,253.24
+Alabama,Fasteners,3.62
+Alabama,Envelopes,52.92
+Alabama,Binders,46.68
+Alabama,Art,43.03
+Alabama,Appliances,208.16

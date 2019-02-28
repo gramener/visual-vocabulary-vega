@@ -1,0 +1,108 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Bullet",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/bullet.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": {"data": "source", "field": "Category",
+        "sort": {"op": "median", "field": "Sales", "order": "descending"}},
+      "range": "height",
+      "padding": 0.5
+    },
+    {
+      "name": "xscale",
+      "domain": {"data": "source", "fields": ["Sales", "Target"]},
+      "range": "width"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "labelFlush": true, "labelOverlap": true, "format": "s" },
+    { "orient": "left", "scale": "yscale" }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "yc": {"scale": "yscale", "field": "Category", "band": 0.5},
+          "height": {"scale": "yscale", "band": 1},
+          "x": {"scale": "xscale", "field": "good"},
+          "x2": {"scale": "xscale", "value": 0},
+          "fill": {"value": "#E6E6E6"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "yc": {"scale": "yscale", "field": "Category", "band": 0.5},
+          "height": {"scale": "yscale", "band": 1},
+          "x": {"scale": "xscale", "field": "average"},
+          "x2": {"scale": "xscale", "value": 0},
+          "fill": {"value": "#B2B2B2"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "yc": {"scale": "yscale", "field": "Category", "band": 0.5},
+          "height": {"scale": "yscale", "band": 1},
+          "x": {"scale": "xscale", "field": "poor"},
+          "x2": {"scale": "xscale", "value": 0},
+          "fill": {"value": "#7F7F7F"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "yc": {"scale": "yscale", "field": "Category", "band": 0.5},
+          "height": {"scale": "yscale", "band": 0.3},
+          "x": {"scale": "xscale", "field": "Sales"},
+          "x2": {"scale": "xscale", "value": 0},
+          "fill": {"value": "#8f3278"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "yc": {"scale": "yscale", "field": "Category", "band": 0.5},
+          "x": {"scale": "xscale", "field": "Target"},
+          "width": {"value": 4},
+          "height": {"scale": "yscale", "band": 0.7},
+          "shape": {"value": "circle"},
+          "fill": {"value": "#222"}
+        }
+      }
+    }
+  ]
+
+}

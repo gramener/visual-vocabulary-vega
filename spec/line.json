@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Line",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/column-line-timeline.csv",
+      "format": {"type": "csv", "parse": {"Order Date": "date:'%Y %b'"}}
+    },
+    {
+      "name": "table_1",
+      "source": "table",
+      "transform": [{"type": "extent", "field": "Order Date", "signal": "xextent"}]
+    },
+    {
+      "name": "label",
+      "source": "table",
+      "transform": [{"type": "filter", "expr": "datum['Order Date'] >= xextent[1]"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "time",
+      "domain": {"data": "table", "field": "Order Date"},
+      "range": "width",
+      "padding": 10
+    },
+    {
+      "name": "yscale",
+      "domain": {"data": "table", "field": "Sales"},
+      "nice": true,
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "format": "%Y", "labelOverlap": true,
+      "tickCount": "year", "domain": false, "ticks": false },
+    { "orient": "left", "scale": "yscale", "format": "s"}
+  ],
+
+  "marks": [
+    {
+      "type": "line",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "Order Date"},
+          "y": {"scale": "yscale", "field": "Sales"},
+          "stroke": {"value": "#268031"},
+          "strokeWidth": {"value": 3},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "label"},
+      "encode": {
+        "update": {
+          "x": {"scale": "xscale", "field": "Order Date"},
+          "y": {"scale": "yscale", "field": "Sales"},
+          "fill": {"value": "#268031"},
+          "size": {"value": 30},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "label"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#268031"},
+          "x": {"scale": "xscale", "field": "Order Date"},
+          "y": {"scale": "yscale", "field": "Sales", "offset": -8},
+          "text": {"signal": "format(datum['Sales'], ',.0f')"},
+          "align": {"value": "center"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+
+}

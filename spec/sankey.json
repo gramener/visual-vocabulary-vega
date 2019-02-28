@@ -1,0 +1,174 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Sankey",
+  "width": 350,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "data",
+      "values": [{"source": "Email", "target": "Email", "count": 7},
+              {"source": "Email", "target": "Postal", "count": 2},
+              {"source": "Email", "target": "Air", "count": 1},
+              {"source": "Postal", "target": "Air", "count": 2},
+              {"source": "Postal", "target": "Postal", "count": 5},
+              {"source": "Postal", "target": "Email", "count": 8}
+            ]
+    },
+    {
+      "name": "nodes",
+      "source": "data",
+      "transform": [
+        { "type": "formula", "expr": "datum.source+datum.target", "as": "key"},
+        {
+          "type": "fold",
+          "fields": ["source", "target"],
+          "as": ["stack", "nodegrp"]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.stack == 'source' ? datum.source+'-'+datum.target : datum.target+'-'+datum.source",
+          "as": "sortid"
+        },
+        {
+          "type": "stack",
+          "groupby": ["stack"],
+          "sort": {"field": "sortid", "order": "descending"},
+          "field": "count"
+        },
+        {"type": "formula", "expr": "(datum.y0+datum.y1)/2", "as": "yc"}
+      ]
+    },
+    {
+      "name": "groups",
+      "source": "nodes",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["stack", "nodegrp"],
+          "fields": ["count"],
+          "ops": ["sum"],
+          "as": ["total"]
+        },
+        {
+          "type": "stack",
+          "groupby": ["stack"],
+          "sort": {"field": "nodegrp", "order": "descending"},
+          "field": "total"
+        },
+        {"type": "formula", "expr": "(datum.y0+datum.y1)/2", "as": "yc"}
+      ]
+    },
+    {
+      "name": "target_nodes",
+      "source": "nodes",
+      "transform": [
+        {"type": "filter", "expr": "datum.stack == 'target'"}
+      ]
+    },
+    {
+      "name": "edges",
+      "source": "nodes",
+      "transform": [
+        {"type": "filter", "expr": "datum.stack == 'source'"},
+        {
+          "type": "lookup",
+          "from": "target_nodes",
+          "key": "key",
+          "fields": ["key"],
+          "as": ["target"]
+        },
+        {
+          "type": "linkpath",
+          "orient": "horizontal",
+          "shape": "diagonal",
+          "sourceY": {"expr": "scale('y', datum.yc)"},
+          "sourceX": {"expr": "scale('x', 'source') + bandwidth('x')"},
+          "targetY": {"expr": "scale('y', datum.target.yc)"},
+          "targetX": {"expr": "scale('x', 'target')"}
+        },
+        {
+          "type": "formula",
+          "expr": "range('y')[0]-scale('y', datum.count)",
+          "as": "strokeWidth"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "range": "width",
+      "domain": ["source", "target"],
+      "paddingOuter": 0.05,
+      "paddingInner": 0.95
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "domain": {"data": "nodes", "field": "y1"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "data", "fields": ["source", "target"]},
+      "range": ["#9BB259", "#000000", "#268031"]
+    }
+  ],
+  
+  "axes": [{"orient": "bottom", "scale": "x", "domain": false}],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "nodes"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555"},
+          "fill": {"scale": "color", "field": "nodegrp"},
+          "width": {"scale": "x", "band": 1},
+          "x": {"scale": "x", "field": "stack"},
+          "y": {"field": "y0", "scale": "y"},
+          "y2": {"field": "y1", "scale": "y"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "path",
+      "name": "edgeMark",
+      "from": {"data": "edges"},
+      "clip": true,
+      "encode": {
+        "update": {
+          "stroke": {"scale": "color", "field": "source"},
+          "strokeWidth": {"field": "strokeWidth"},
+          "path": {"field": "path"},
+          "strokeOpacity": { "value": 0.35},
+          "tooltip": {"signal": "datum"}
+        },
+        "hover": {"strokeOpacity": {"value": 1}}
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "groups"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "stack", "offset": {"signal": "(datum.stack=='source'?-5:bandwidth('x')+5)"}},
+          "yc": {"scale": "y", "field": "yc"},
+          "align": {"signal": "datum.stack=='source'? 'right' : 'left'"},
+          "baseline": {"value": "middle"},
+          "fontWeight": {"value": "bold"},
+          "text": {"field": "nodegrp"}
+        }
+      }
+    }
+  ]
+}

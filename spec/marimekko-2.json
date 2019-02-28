@@ -1,0 +1,78 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Marimekko",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/marimekko.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type" : "nest",
+          "keys": ["Region", "Year"]
+        },
+        {
+          "type": "treemap",
+          "field": "Sales",
+          "method": "slicedice",
+          "ratio": 1,
+          "paddingInner": 1,
+          "size": [{"signal": "height"}, {"signal": "width"}],
+          "as": ["y0", "x0", "y1", "x1", "depth", "children"]
+        }
+      ]
+      },
+      {
+        "name": "labels",
+        "source": "table",
+        "transform": [
+          {"type": "filter", "expr": "datum.x0 == 0"}
+        ]
+      }
+    ],
+
+    "scales": [
+      {
+        "name": "color",
+        "type": "ordinal",
+        "domain": {"data": "table", "field": "Year"},
+        "range": ["#96cbff", "#1A8CFF", "#115DAA", "#082A4D"]
+      }
+    ],
+
+    "marks": [
+      {
+        "type": "rect",
+        "from": {"data": "table"},
+        "encode": {
+          "update": {
+            "x": {"field": "x0"},
+            "y": {"field": "y0"},
+            "x2": {"field": "x1"},
+            "y2": {"field": "y1"},
+            "fill": {"scale": "color", "field": "Year"},
+            "tooltip": {"signal": "datum"}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "labels"},
+        "encode": {
+          "update": {
+            "y": {"signal": "(datum.y0 + datum.y1)/2"},
+            "x": {"value": -5},
+            "text": {"field": "Region"},
+            "align": {"value": "right"}
+          }
+        }
+      }
+    ]
+
+  }

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Pie",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "signals": [
+    {"name": "radius", "update": "min(width, height)"}
+  ],
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/ordered-bar.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type": "pie",
+          "field": "Sales"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "Region"},
+      "range": ["#96cbff", "#1A8CFF", "#115DAA", "#082A4D"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "arc",
+      "from": {"data": "table"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Region"},
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height / 2"},
+          "startAngle": {"field": "startAngle"},
+          "endAngle": {"field": "endAngle"},
+          "outerRadius": {"signal": "radius / 2"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+}

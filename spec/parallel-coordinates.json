@@ -1,0 +1,103 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Parallel coordinates",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "config": {
+    "axisY": {
+      "titleX": -2,
+      "titleY": {"signal": "height + 5"},
+      "titleAngle": 0,
+      "titleAlign": "center",
+      "titleBaseline": "top"
+    }
+  },
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/parallel-coordinates.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "fields",
+      "values": ["Burlgary Rate", "Motor Vehicle Theft", "Murder Rate"]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "ord", "type": "point",
+      "range": "width", "round": true,
+      "domain": {"data": "fields", "field": "data"}
+    },
+    {
+      "name": "Burlgary Rate", "type": "linear",
+      "range": "height", "zero": false, "nice": true,
+      "domain": {"data": "source", "field": "Burlgary Rate"}
+    },
+    {
+      "name": "Motor Vehicle Theft", "type": "linear",
+      "range": "height", "zero": false, "nice": true,
+      "domain": {"data": "source", "field": "Motor Vehicle Theft"}
+    },
+    {
+      "name": "Murder Rate", "type": "linear",
+      "range": "height", "zero": false, "nice": true,
+      "domain": {"data": "source", "field": "Murder Rate"}
+    }
+  ],
+
+  "axes": [
+    {
+      "orient": "left",
+      "scale": "Burlgary Rate", "title": "Burlgary Rate",
+      "offset": {"scale": "ord", "value": "Burlgary Rate", "mult": -1}
+    },
+    {
+      "orient": "left",
+      "scale": "Motor Vehicle Theft", "title": "Motor Vehicle Theft",
+      "offset": {"scale": "ord", "value": "Motor Vehicle Theft", "mult": -1}
+    },
+    {
+      "orient": "right",
+      "scale": "Murder Rate", "title": "Murder Rate",
+      "offset": {"scale": "ord", "value": "Murder Rate", "mult": 0}
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {"data": "source"},
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "fields"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "ord", "field": "data"},
+              "y": {
+                "scale": {"datum": "data"},
+                "field": {"parent": {"datum": "data"}}
+              },
+              "stroke": [
+                {
+                  "test": "datum['Burlgary Rate'] < 10",
+                  "value": "pink"
+                },
+                {"value": "#8f3278"}
+              ],
+              "strokeWidth": {"value": 1},
+              "strokeOpacity": {"value": 0.7}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

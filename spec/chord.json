@@ -1,0 +1,146 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Chord",
+  "width": 350,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "signals": [
+    {"name": "radius", "update": "min(height, width)"}
+  ],
+
+  "data": [
+    {
+      "name": "data",
+      "values": [
+        {"source": "Email", "target": "Email", "count": 7},
+        {"source": "Email", "target": "Postal", "count": 2},
+        {"source": "Email", "target": "Air", "count": 1},
+        {"source": "Postal", "target": "Air", "count": 2},
+        {"source": "Postal", "target": "Postal", "count": 5},
+        {"source": "Postal", "target": "Email", "count": 8}
+      ]
+    },
+    {
+      "name": "nodes",
+      "source": "data",
+      "transform": [
+        {"type": "formula", "expr": "datum.count*(datum.source == datum.target?0.5:1)", "as": "count_1"},
+        { "type": "formula", "expr": "datum.source+datum.target", "as": "key"},
+        {
+          "type": "fold",
+          "fields": ["source", "target"],
+          "as": ["_stack", "nodegrp"]
+        },
+        {"type": "collect", "sort": {"field": "nodegrp"}},
+        {
+          "type": "pie",
+          "field": "count_1",
+          "startAngle": 0,
+          "endAngle": 6.29
+        },
+        {"type": "formula", "expr": "0.5*(datum.startAngle+datum.endAngle)", "as": "_angle"},
+        {"type": "formula", "expr": "width/2 + cos(datum._angle-PI/2)*radius/3", "as": "_x"},
+        {"type": "formula", "expr": "height/2 + sin(datum._angle-PI/2)*radius/3", "as": "_y"}
+      ]
+    },
+    {
+      "name": "links_data",
+      "source": "nodes",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "nodes",
+          "key": "key",
+          "fields": ["key"],
+          "as": ["target"]
+        },
+        {"type": "formula", "expr": "radius/2/PI*(datum.endAngle-datum.startAngle)", "as": "strokeWidth"}
+      ]
+    },
+    {
+      "name": "links_data_self",
+      "source": "links_data",
+      "transform": [
+        {
+          "type": "linkpath",
+          "shape": {"signal": "'arc'"},
+          "sourceX": "target._x", "sourceY": "target._y",
+          "targetX": "_x", "targetY": "_y",
+          "as": "linkpath"
+        },
+        {"type": "filter", "expr": "datum.source==datum.target.target"}
+      ]
+    },
+    {
+      "name": "links_data_1",
+      "source": "links_data",
+      "transform": [
+        {
+          "type": "linkpath",
+          "sourceX": "target._x", "sourceY": "target._y",
+          "targetX": "_x", "targetY": "_y",
+          "as": "linkpath"
+        },
+        {"type": "filter", "expr": "datum.source!=datum.target.target"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "nodes", "field": "nodegrp"},
+      "range": ["#9BB259", "#000000", "#268031"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "path",
+      "from": {"data": "links_data_self"},
+      "encode": {
+        "update": {
+          "path": {"field": "linkpath"},
+          "stroke": {"scale": "color", "field": "nodegrp"},
+          "strokeOpacity": {"value": 0.3},
+          "strokeWidth": {"field": "strokeWidth"}
+        }
+      }
+    },
+    {
+      "type": "path",
+      "from": {"data": "links_data_1"},
+      "encode": {
+        "update": {
+          "path": {"field": "linkpath"},
+          "stroke": {"scale": "color", "field": "nodegrp"},
+          "strokeOpacity": {"value": 0.3},
+          "strokeWidth": {"field": "strokeWidth"}
+        }
+      }
+    },
+    {
+      "name": "node_arc",
+      "type": "arc",
+      "from": {"data": "nodes"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "nodegrp"},
+          "stroke": {"value": "black"},
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height / 2"},
+          "startAngle": {"field": "startAngle"},
+          "endAngle": {"field": "endAngle"},
+          "innerRadius": {"signal": "radius / 3"},
+          "outerRadius": {"signal": "radius / 2"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+
+}

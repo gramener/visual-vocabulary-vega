@@ -1,0 +1,88 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "X Y Heatmap",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/xy-heatmap.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {"data": "source", "field": "Age Range"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {"data": "source", "field": "Savings Amount"},
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "sequential",
+      "domain": {"data": "source", "field": "Response Rate"},
+      "range": ["#F2E5DA", "#ABA199", "#6F6964", "#1A1817"]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "title": "Age Range",
+      "labelOverlap": true
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "title": "Savings Amount",
+      "labelLimit": 150
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Response Rate"},
+          "x": {"scale": "x", "field": "Age Range"},
+          "width": {"scale": "x", "band": true},
+          "y": {"scale": "y", "field": "Savings Amount"},
+          "height": {"scale": "y", "band": true},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Age Range",  "band": 0.5},
+          "y": {"scale": "y", "field": "Savings Amount", "band": 0.5, "offset": 4},
+          "fill": [
+            {"test": "datum['Response Rate'] < 18", "value": "black"},
+            {"value": "white"}
+          ],
+          "text": {"field": "Response Rate"},
+          "align": {"value": "center"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    }
+  ]
+
+}

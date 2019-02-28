@@ -1,0 +1,193 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Boxplot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/boxplot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table_1",
+      "source": "source",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Segment"],
+          "ops": ["q1", "q3", "median", "min", "max"],
+          "fields": ["Profit", "Profit", "Profit", "Profit", "Profit"],
+          "as": [
+            "lower_box",
+            "upper_box",
+            "mid_box",
+            "lower_whisker",
+            "upper_whisker"
+          ]
+        }]
+    }
+
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Segment"},
+      "range": "width",
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Profit"},
+      "range": "height",
+      "padding": 0.5
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "format": "s"
+    },
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "offset": 10
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Segment"},
+          "y": {"scale": "y", "field": "Profit"},
+          "size": {"value": 50},
+          "shape": {"value": "circle"},
+          "opacity": {"value": 0.6},
+          "stroke": {"value": "#ffffff"},
+          "fill": {"value": "#e94e25"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "xc": {"scale": "x", "field": "Segment", "band": 0.5},
+          "width": {"value": 30},
+          "y": {"scale": "y", "field": "lower_whisker"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "xc": {"scale": "x", "field": "Segment", "band": 0.5},
+          "width": {"value": 30},
+          "y": {"scale": "y", "field": "lower_box"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "xc": {"scale": "x", "field": "Segment", "band": 0.5},
+          "width": {"value": 30},
+          "y": {"scale": "y", "field": "upper_box"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "xc": {"scale": "x", "field": "Segment", "band": 0.5},
+          "width": {"value": 30},
+          "y": {"scale": "y", "field": "upper_whisker"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "fill": {"value": "gray"},
+          "opacity": {"value": 0.3},
+          "xc": {"scale": "x", "field": "Segment", "band": 0.5},
+          "width": {"value": 30},
+          "y": {"scale": "y", "field": "mid_box"},
+          "y2": {"scale": "y", "field": "upper_box"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "fill": {"value": "gray"},
+          "opacity": {"value": 0.1},
+          "xc": {"scale": "x", "field": "Segment", "band": 0.5},
+          "width": {"value": 30},
+          "y": {"scale": "y", "field": "mid_box"},
+          "y2": {"scale": "y", "field": "lower_box"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "x": {"scale": "x", "field": "Segment", "band": 0.5},
+          "y": {"scale": "y", "field": "lower_whisker"},
+          "y2": {"scale": "y", "field": "lower_box"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {"data": "table_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#555555"},
+          "x": {"scale": "x", "field": "Segment", "band": 0.5},
+          "y": {"scale": "y", "field": "upper_whisker"},
+          "y2": {"scale": "y", "field": "upper_box"}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+@import url("bootstraptheme.css");
+
+.box {
+  border: 1px solid #dddddd;
+  resize: both;
+}
+.scrollbar { overflow: auto; }
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes placeHolderShimmer{
+  0% { background-position: -468px 0 }
+100% { background-position:  468px 0 }
+}
+
+.placeholder {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 96px;
+  position: relative;
+}
+.box:hover .posteditor { display:block !important; }

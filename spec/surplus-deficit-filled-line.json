@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Surplus/deficit filled line",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/surplus-deficit-filled-line.csv",
+      "format": {"type": "csv", "parse": {"MonthlyAvg": "number", "Date": "date"}}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "time",
+      "range": "width",
+      "zero": false,
+      "domain": {"data": "table", "field": "Date"}
+    },
+    {
+      "name": "yscale",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "table", "field": "MonthlyAvg"}
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "xscale", "format": "%b %Y", "labelFlush": true, "labelOverlap": true, "ticks": false, "domain": false},
+    {"orient": "left", "scale": "yscale", "format": "s", "ticks": false, "domain": false, "grid": true, "tickCount": 5}
+  ],
+
+  "marks": [
+    {
+      "type": "area",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "interpolate": {"value": "monotone"},
+          "x": {"scale": "xscale", "field": "Date"},
+          "y": {"scale": "yscale", "field": "MonthlyAvg"},
+          "y2": {"scale": "yscale", "value": 0},
+          "fill": {"value": "#dea22169"},
+          "stroke": {"value": "#dea221"}
+        }
+      }
+    }
+  ]
+
+}

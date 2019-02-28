@@ -1,0 +1,99 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Venn",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"catA": "West", "catAval": 520, "catB": "East", "catBval": 340, "common": 160}
+      ],
+      "transform": [
+        {"type": "formula", "expr": "(datum.common>0)?(datum.common==datum.catBval?1.1:1.5):2.42", "as": "_p"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "size",
+      "domain": {"data": "table", "fields": ["catAval", "catBval"]},
+      "range": [0, {"signal": "height*height/2"}]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {"data":"table"},
+      "encode": {
+        "update": {
+          "shape": {"value": "circle"},
+          "xc": {"signal": "0.5*height"},
+          "yc": {"signal": "0.5*height"},
+          "size": {"scale": "size", "field": "catAval"},
+          "fill": {"value": "#074293"},
+          "fillOpacity": {"value": 0.7},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data":"table"},
+      "encode": {
+        "update": {
+          "shape": {"value": "circle"},
+          "xc": {"signal": "0.5*height*datum._p"},
+          "yc": {"signal": "0.5*height"},
+          "size": {"scale": "size", "field": "catBval"},
+          "fill": {"value": "#1A8CFF"},
+          "fillOpacity": {"value": 0.7},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data":"table"},
+      "encode": {
+        "update": {
+          "xc": {"signal": "0.5*height"},
+          "yc": {"signal": "height-20"},
+          "align": {"value": "right"},
+          "text": {"field": "catA"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data":"table"},
+      "encode": {
+        "update": {
+          "xc": {"signal": "0.5*height*datum._p"},
+          "yc": {"signal": "height-20"},
+          "align": {"value": "left"},
+          "text": {"field": "catB"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data":"table"},
+      "encode": {
+        "update": {
+          "xc": {"signal": "((datum.common==0)?1.85:datum._p)*0.5*height"},
+          "yc": {"signal": "height/2"},
+          "align": {"value": "right"},
+          "fontSize": {"value": 20},
+          "text": {"field": "common"}
+        }
+      }
+    }
+  ]
+}

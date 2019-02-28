@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Dot plot",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/dot-plot.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Profit"},
+      "range": "width",
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Sub-Category"},
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source", "field": "Year"},
+      "range": ["#000000", "#D7C0D0", "#e94e25"]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "labelFlush": true, "labelOverlap": true, "ticks": false
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "source",
+          "groupby": "Sub-Category"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Profit"},
+              "y": {"scale": "y", "field": "Sub-Category"},
+              "stroke": {"value": "#999999"},
+              "strokeWidth": {"value": 2},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Profit"},
+              "y": {"scale": "y", "field": "Sub-Category"},
+              "fill": {"scale": "color", "field": "Year"},
+              "size": {"value": 50},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+
+}

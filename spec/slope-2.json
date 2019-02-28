@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Slope",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/slope-2.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Year"},
+      "range": "width",
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Sales"},
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source", "field": "Color"},
+      "range": ["#BAB0AC", "#268031"]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "source",
+          "groupby": "Department"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Year"},
+              "y": {"scale": "y", "field": "Sales"},
+              "stroke": {"scale": "color", "field": "Color"},
+              "strokeWidth": {"value": 1.5},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Year"},
+              "y": {"scale": "y", "field": "Sales"},
+              "fill": {"scale": "color", "field": "Color"},
+              "size": {"value": 25},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+
+}

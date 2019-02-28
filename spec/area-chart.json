@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Area chart",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/area-chart.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table",
+      "source": "source",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["Date"],
+          "sort": {"field": "Category"},
+          "field": "Sales"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "range": "width",
+      "domain": {"data": "table", "field": "Date"}
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "nice": true, "zero": true,
+      "domain": {"data": "table", "field": "y1"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": ["#EBDCCB", "#8ACB88", "#268031"],
+      "domain": {"data": "table", "field": "Category"}
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "x", "labelOverlap": true, "format": "%b %Y"},
+    {"orient": "left", "scale": "y"}
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "table",
+          "groupby": "Category"
+        }
+      },
+      "marks": [
+        {
+          "type": "area",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "x", "field": "Date"},
+              "y": {"scale": "y", "field": "y0"},
+              "y2": {"scale": "y", "field": "y1"},
+              "fill": {"scale": "color", "field": "Category"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

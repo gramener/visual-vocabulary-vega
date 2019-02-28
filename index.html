@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Visual Vocabulary ft. Vega</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="main"></div>
+  <!-- templates -->
+  <script class="index" type="text/html">
+    <%= APP.T.header({APP}) %>
+    <div class="container-fluid">
+      <div class="row pt-2">
+        <div class="col-12 col-md-7">
+          <h2>Visual Vocabulary<span class="sm3"> - Vega Edition</span></h2>
+        </div>
+        <div class="col-12 col-md-5 d-md-block d-none sm1 text-muted text-right">
+          <p class="mb-0">Inspired by Financial Times's
+            <a class="font-weight-bold text-muted" href="https://ft.com/vocabulary">Visual Vocabulary<a> &
+            <a class="font-weight-bold text-muted" href="http://www.vizwiz.com/2018/07/visual-vocabulary.html">Andy Kriebel's ft.</a>
+          <p class="font-weight-bold">Click any section below to view the charts</p>
+        </div>
+      </div>
+      <p class="sm1 text-muted">There are so many ways to visualise data - how do we know which one to pick? Click on a category below to decide which data relationship is most important in your story, then look at the different types of charts within the category to form some initial ideas about what might work best. This list is not meant to be exhaustive, nor a wizard, but is a useful starting point for making informative and meaningful data visualisations.</p>
+      <% _.each(_.chunk(APP.data.indexlist, 3), row => { %>
+      <div class="row">
+        <% _.each(row, item => { %>
+          <a class="col col-md-4 col-12 px-2 text-decoration-none text-muted" href="#/<%= item.type %>/">
+            <h2 style="color:<%= item.color %>;border-top: 10px solid;"><%= item.type %></h2>
+            <p><%= item.desc %></p>
+          </a>
+        <% }) %>
+      </div>
+      <% }) %>
+    <%= APP.T.credit({APP}) %>
+    </div>
+  </script>
+
+  <script class="panel" type="text/html">
+    <%= APP.T.header({APP}) %>
+    <div class="container-fluid">
+    <% var filter = (APP.path=='FullList')?{}:{type: APP.path} %>
+    <% var metas = _.filter(APP.data.indexlist, filter) %>
+    <% _.each(metas, meta => { %>
+      <% var charts = _.filter(APP.data.index, {type: meta.type}) %>
+      <h1 style="color:<%= meta.color %>;" class="mt-2"><%= meta.type %></h2>
+      <p style="border-bottom: 10px solid <%= meta.color %>;" class="pb-2"><%= meta.desc %></p>
+      <% _.each(_.groupBy(charts, 'row'), row => { %>
+      <div class=row>
+        <% _.each(row, item => { %>
+        <% var size = Math.floor(12 / row.length) %>
+        <div class="box col col-12 col-md-<%= size %>">
+          <p class="font-weight-bold mt-1 my-0"><%= item.name %></p>
+          <p class="mb-1 sm1"><%= item.desc %></p>
+          <span class="posteditor cursor-pointer d-none font-weight-bold p-1 pos-tr position-absolute sm2 text-monospace">Edit</span>
+          <div class="vegachart scrollbar" data-vg="spec/<%= item.id %>.json">
+            <div class="placeholder"></div>
+          </div>
+        </div> <!--.box -->
+        <% }) %>
+      </div> <!--.row -->
+      <% }) %>
+    <% }) %>
+    <% if (APP.path == 'FullList') { %>
+      <%= APP.T.credit({APP}) %>
+    <% } %>
+    </div>
+  </script>
+
+  <script class="header" type="text/html">
+    <div class="bg-light border-bottom mt-n1 px-2">
+    <% var headers = APP.data.indexlist.concat({type: 'FullList'}) %>
+      <a class="border-right px-2 ml-n1 sm1 text-muted text-decoration-none text-nowrap" href="#">Visual Vocabulary</a>
+      <% _.each(headers, item => { %>
+        <% var selected = (item.type == APP.path)?'text-dark font-weight-bold bg-color6':'text-muted' %>
+        <a class="border-right px-3 ml-n1 sm1 text-decoration-none text-nowrap <%= selected %>"
+          style="border-bottom: 0.3rem solid <%= item.color %>;" href="#/<%= item.type %>/"><%= item.type %></a>
+      <% }) %>
+    </div>
+  </script>
+
+  <script class="credit" type="text/html">
+    <div class="border py-2 row sm2 text-muted">
+      <div class="col col-12 col-md-8">
+        <div class="font-weight-bolder">CREATED BY</div>
+        <div><a class="text-muted" href="https://twitter.com/PratapVardhan">Pratap Vardhan | @PratapVardhan</a></div>
+        <div class="font-weight-bolder">CREDITS</div>
+        <div><a class="text-muted" href="https://vega.github.io/">Vega Authors & Community</a>, <a class="text-muted" href="https://gramener.com/">Gramener</a></div>
+      </div>
+      <div class="col col-12 col-md-4">
+        <div class="font-weight-bolder">INSPIRED BY</div>
+        <div><a class="text-muted" href="https://twitter.com/VizWizBI">Andy Kriebel | @VizWizBI (design / data)</a></div>
+        <div>FT Graphics: <span class="sm1">Alan Smith; Chris Campbell; Ian Bott; Liz Faunce; Graham Parrish; Billy Ehrenberg-Shannon; Paul McCallum; Martin Stabe</span></div>
+        <div>Visual Vocabulary: ft.com/vocabulary</div>
+      </div>
+    </div>
+  </script>
+  <!-- templates -->
+  <script src="https://cdn.jsdelivr.net/npm/underscore@1.9.1/underscore.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.0.0-rc3/build/vega.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-tooltip@0.16.0/build/vega-tooltip.min.js"></script>
+  <script src="script.js"></script>
+</body></html>

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Spine",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "signals": [
+    { "name": "chartWidth", "update": "width / 2" }
+  ],
+
+  "data": [
+    {
+      "name": "data_source",
+      "url": "./spec/data/spine.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "data_cat1",
+      "source": "data_source",
+      "transform": [{"type": "filter", "expr": "datum.Gender == 'Men'"}]
+    },
+    {
+      "name": "data_cat2",
+      "source": "data_source",
+      "transform": [{"type": "filter", "expr": "datum.Gender == 'Women'"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "y",
+      "type": "band",
+      "range": [{"signal": "height"}, 0],
+      "round": true,
+      "domain": {"data": "data_source", "field": "Nationality"}
+    },
+    {
+      "name": "c",
+      "type": "ordinal",
+      "domain": ["Men", "Women"],
+      "range": ["#0f7b9e", "#dea221"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "encode": {
+        "update": {
+          "x": {"value": 0},
+          "height": {"signal": "height"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "x",
+          "type": "linear",
+          "range": [{"signal": "chartWidth"}, 0],
+          "nice": true, "zero": true,
+          "domain": {"data": "data_source", "field": "Response"}
+        }
+      ],
+
+      "axes": [
+        {"orient": "bottom", "scale": "x", "format": ".0%", "labelOverlap": true, "domain": false, "ticks": false},
+        {"orient": "left", "scale": "y", "grid": true, "ticks": false, "domain": false, "gridWidth": 0.5}
+      ],
+
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "data_cat2"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "Response"},
+              "x2": {"scale": "x", "value": 0},
+              "y": {"scale": "y", "field": "Nationality"},
+              "height": {"scale": "y", "band": 1, "offset": -1},
+              "fill": {"scale": "c", "field": "Gender"},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+
+      "encode": {
+        "update": {
+          "x": {"signal": "chartWidth"},
+          "height": {"signal": "height"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "x",
+          "type": "linear",
+          "range": [0, {"signal": "chartWidth"}],
+          "nice": true, "zero": true,
+          "domain": {"data": "data_source", "field": "Response"}
+        }
+      ],
+
+      "axes": [
+        {"orient": "bottom", "scale": "x", "format": ".0%", "labelOverlap": true, "title": "Response Ratio",
+        "domain": false, "ticks": false}
+      ],
+
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "data_cat1"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "Response"},
+              "x2": {"scale": "x", "value": 0},
+              "y": {"scale": "y", "field": "Nationality"},
+              "height": {"scale": "y", "band": 1, "offset": -1},
+              "fill": {"scale": "c", "field": "Gender"},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

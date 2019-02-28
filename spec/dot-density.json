@@ -1,0 +1,98 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Dot density",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+
+  "data": [
+    {
+      "name": "states",
+      "url": "./spec/data/us-10m.json",
+      "format": {"type": "topojson", "feature": "states"}
+    },
+    {
+      "name": "data",
+      "url": "./spec/data/parallel-coordinates.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "states", "key": "id",
+          "fields": ["id"], "as": ["geo"]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.geo"
+        },
+        {
+          "type": "formula", "as": "centroid",
+          "expr": "geoCentroid('projection', datum.geo)"
+        },
+        {
+          "type": "formula", "as": "_x",
+          "expr": "sequence(1, datum['Burlgary Rate'])"},
+        {"type": "flatten", "fields": ["_x"]}
+      ]
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa",
+      "scale": 500,
+      "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {"data": "data", "field": "Burlgary Rate"},
+      "range": ["#080A10", "#999999", "#E94E25"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "states"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#c9c9c9"}
+        }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    },
+    {
+      "name": "circles",
+      "type": "symbol",
+      "from": {"data": "data"},
+      "encode": {
+        "enter": {
+          "size": {"value": 5},
+          "fill": {"scale": "color", "field": "Burlgary Rate"},
+          "x": {"field": "centroid[0]"},
+          "y": {"field": "centroid[1]"},
+          "tooltip": {"signal": "datum"}
+        }
+      },
+      "transform": [
+        {
+          "type": "force",
+          "static": true,
+          "forces": [
+            {"force": "collide", "radius": {"expr": "sqrt(datum.size)/2"}},
+            {"force": "x", "x": "datum.centroid[0]"},
+            {"force": "y", "y": "datum.centroid[1]"}
+          ]
+        }
+      ]
+    }
+  ]
+}

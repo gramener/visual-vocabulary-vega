@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Network",
+  "width": 350,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "node-data",
+      "values": [
+        {"name": "Entity 1", "group": 1, "index": 0},
+        {"name": "Entity 2", "group": 1, "index": 1},
+        {"name": "Entity 3", "group": 2, "index": 2},
+        {"name": "Entity 4", "group": 2, "index": 3},
+        {"name": "Entity 5", "group": 2, "index": 4},
+        {"name": "Entity 6", "group": 3, "index": 5},
+        {"name": "Entity 7", "group": 3, "index": 6},
+        {"name": "Entity 8", "group": 3, "index": 7}
+      ]
+    },
+    {
+      "name": "link-data",
+      "values": [
+        {"source": 1, "target": 0, "value": 5},
+        {"source": 1, "target": 2, "value": 60},
+        {"source": 1, "target": 3, "value": 10},
+        {"source": 5, "target": 3, "value": 30},
+        {"source": 6, "target": 7, "value": 10}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "node-data", "field": "group"},
+      "range": ["#9BB259", "#000000", "#268031"]
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "domain": {"data": "node-data", "field": "group"},
+      "range": [50, 1200]
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "nodes",
+      "type": "symbol",
+      "zindex": 1,
+
+      "from": {"data": "node-data"},
+
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "group"},
+          "stroke": {"value": "white"},
+          "size": {"scale": "size", "field": "group"},
+          "tooltip": {"signal": "datum"}
+        }
+      },
+
+      "transform": [
+        {
+          "type": "force",
+          "iterations": 100,
+          "static": true,
+          "signal": "force",
+          "forces": [
+            {"force": "center", "x": {"signal": "width / 2"}, "y": {"signal": "height / 2"}},
+            {"force": "collide", "radius": {"expr": "sqrt(datum.size)"}},
+            {"force": "nbody", "strength": -10},
+            {"force": "link", "links": "link-data", "distance": 50}
+          ]
+        }
+      ]
+    },
+    {
+      "type": "path",
+      "from": {"data": "link-data"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "stroke": {"value": "#ccc"},
+          "strokeWidth": {"signal": "datum.value*0.2"}
+        }
+      },
+      "transform": [
+        {
+          "type": "linkpath",
+          "require": {"signal": "force"},
+          "shape": "line",
+          "sourceX": "datum.source.x", "sourceY": "datum.source.y",
+          "targetX": "datum.target.x", "targetY": "datum.target.y"
+        }
+      ]
+    }
+  ]
+}

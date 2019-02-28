@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Fan chart (projections)",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/fan-chart-projections.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "table",
+      "source": "source",
+      "transform": [{"type": "filter", "expr": "datum['Projection'] != 1"}]
+    },
+    {
+      "name": "table_p",
+      "source": "source",
+      "transform": [{"type": "filter", "expr": "datum['Projection'] == 1"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "time",
+      "domain": {"data": "source", "field": "WeekDate"},
+      "range": "width",
+      "padding": 10
+    },
+    {
+      "name": "yscale",
+      "domain": {
+        "data": "source",
+        "fields": ["Close", "Projectedli", "Projectedho"]
+      },
+      "nice": true,
+      "range": "height"
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "xscale",
+      "labelFlush": true,
+      "labelOverlap": true
+    },
+    {"orient": "left", "scale": "yscale", "format": "s"}
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {"name": "series", "data": "source", "groupby": "Projection"}
+      },
+      "marks": [
+        {
+          "type": "area",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "xscale", "field": "WeekDate"},
+              "y": {"scale": "yscale", "field": "Projectedli"},
+              "y2": {"scale": "yscale", "field": "Projectedho"},
+              "fill": {"value": "#268031"},
+              "fillOpacity": {"value": 0.3},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        },
+        {
+          "type": "line",
+          "from": {"data": "series"},
+          "encode": {
+            "update": {
+              "x": {"scale": "xscale", "field": "WeekDate"},
+              "y": {"scale": "yscale", "field": "Close"},
+              "stroke": {"value": "#268031"},
+              "tooltip": {"signal": "datum"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

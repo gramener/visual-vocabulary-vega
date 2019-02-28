@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Standard bar charts display the ranks of values much more easily when sorted into order",
+  "title": "Priestley timeline",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "source",
+      "url": "./spec/data/priestley-timeline.csv",
+      "format": {"type": "csv", "parse": {"Born": "date:'%d-%m-%Y'", "Died": "date:'%d-%m-%Y'"}}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": {"data": "source", "field": "Name",
+        "sort": {"field": "Born", "order": "descending"}},
+      "range": "height",
+      "padding": 0.2,
+      "round": true
+    },
+    {
+      "name": "xscale",
+      "type": "time",
+      "domain": {"data": "source", "fields": ["Born", "Died"]},
+      "nice": true,
+      "range": "width"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "format": "%Y", "labelFlush": true, "labelOverlap": true }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "y": {"scale": "yscale", "field": "Name"},
+          "height": {"scale": "yscale", "band": 1},
+          "x": {"scale": "xscale", "field": "Born"},
+          "x2": {"scale": "xscale", "field": "Died"},
+          "fill": {"value": "#268031"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "source"},
+      "encode": {
+        "enter": {
+          "dy": {"value": 3},
+          "dx": {"value": 2},
+          "y": {"scale": "yscale", "field": "Name", "band": 0.5},
+          "x": {"scale": "xscale", "field": "Born"},
+          "text": {"field": "Name"},
+          "fontSize": {"value": 9},
+          "fill": {"value": "white"}
+        }
+      }
+    }
+  ]
+
+}

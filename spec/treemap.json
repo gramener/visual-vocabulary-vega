@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Treemap",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "data": [
+    {
+      "name": "table",
+      "url": "./spec/data/treemap.csv",
+      "format": {"type": "csv", "parse": "auto"},
+      "transform": [
+        {
+          "type" : "nest",
+          "keys": ["Category", "Sub-Category"]
+        },
+        {
+          "type": "treemap",
+          "field": "Sales",
+          "ratio": 1,
+          "paddingInner": 1,
+          "size": [{"signal": "width"}, {"signal": "height"}]
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "Category"},
+      "range": ["#96cbff", "#1A8CFF", "#115DAA", "#082A4D"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "table"},
+      "encode": {
+        "update": {
+          "x": {"field": "x0"},
+          "y": {"field": "y0"},
+          "x2": {"field": "x1"},
+          "y2": {"field": "y1"},
+          "fill": {"scale": "color", "field": "Category"},
+          "tooltip": {"signal": "datum"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "table"},
+      "encode": {
+        "update": {
+          "dx": {"value": 2},
+          "dy": {"value": 10},
+          "x": {"field": "x0"},
+          "y": {"field": "y0"},
+          "text": [
+            {"test": "(datum.y1-datum.y0<20) || (datum.x1-datum.x0<30)", "value": ""},
+            {"field": "Sub-Category"}],
+          "fill": {"value": "white"}
+        }
+      }
+    }
+  ]
+
+}

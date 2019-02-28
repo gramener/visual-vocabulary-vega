@@ -1,0 +1,204 @@
+Region,Segment,Sub-Category,Profit
+West,Home Office,Tables,-113.56
+West,Corporate,Tables,1074.2
+West,Consumer,Tables,521.97
+South,Home Office,Tables,-657.33
+South,Corporate,Tables,-1388.22
+South,Consumer,Tables,-2577.5
+East,Home Office,Tables,-2017.37
+East,Corporate,Tables,-5299.66
+East,Consumer,Tables,-3708.35
+Central,Home Office,Tables,-302.67
+Central,Corporate,Tables,707.18
+Central,Consumer,Tables,-3964.16
+West,Home Office,Supplies,38.12
+West,Corporate,Supplies,361.61
+West,Consumer,Supplies,226.32
+South,Home Office,Supplies,43.66
+South,Corporate,Supplies,-111.64
+South,Consumer,Supplies,69.86
+East,Home Office,Supplies,29.4
+East,Corporate,Supplies,-12.9
+East,Consumer,Supplies,-1171.64
+Central,Home Office,Supplies,18.35
+Central,Corporate,Supplies,101.85
+Central,Consumer,Supplies,-782.09
+West,Home Office,Storage,1325.54
+West,Corporate,Storage,3491.49
+West,Consumer,Storage,3828.3
+South,Home Office,Storage,667.06
+South,Corporate,Storage,718.57
+South,Consumer,Storage,888.67
+East,Home Office,Storage,2578.99
+East,Corporate,Storage,3836.46
+East,Consumer,Storage,1973.92
+Central,Home Office,Storage,472.02
+Central,Corporate,Storage,1084.51
+Central,Consumer,Storage,413.31
+West,Home Office,Phones,2076.7
+West,Corporate,Phones,2565.11
+West,Consumer,Phones,4468.93
+South,Home Office,Phones,1463.15
+South,Corporate,Phones,3680.21
+South,Consumer,Phones,5623.91
+East,Home Office,Phones,1856.81
+East,Corporate,Phones,3129.62
+East,Consumer,Phones,7328.25
+Central,Home Office,Phones,3515.73
+Central,Corporate,Phones,2391.28
+Central,Consumer,Phones,6416.02
+West,Home Office,Paper,2618.6
+West,Corporate,Paper,3883.29
+West,Consumer,Paper,5617.34
+South,Home Office,Paper,1451.66
+South,Corporate,Paper,1410.06
+South,Consumer,Paper,3085.34
+East,Home Office,Paper,2429.08
+East,Corporate,Paper,2668.96
+East,Consumer,Paper,3917.33
+Central,Home Office,Paper,1658.03
+Central,Corporate,Paper,2399.23
+Central,Consumer,Paper,2914.64
+West,Home Office,Machines,-3772.58
+West,Corporate,Machines,960.04
+West,Consumer,Machines,2193.62
+South,Home Office,Machines,-1829.33
+South,Corporate,Machines,-2520.12
+South,Consumer,Machines,2910.56
+East,Home Office,Machines,5600.13
+East,Corporate,Machines,2624.6
+East,Consumer,Machines,-1296.08
+Central,Home Office,Machines,542.47
+Central,Corporate,Machines,-361.5
+Central,Consumer,Machines,-1667.03
+West,Home Office,Labels,231.18
+West,Corporate,Labels,904.59
+West,Consumer,Labels,1167.35
+South,Home Office,Labels,49.43
+South,Corporate,Labels,150.44
+South,Consumer,Labels,840.9
+East,Home Office,Labels,177.12
+East,Corporate,Labels,218.63
+East,Consumer,Labels,733.53
+Central,Home Office,Labels,251.71
+Central,Corporate,Labels,487.17
+Central,Consumer,Labels,334.2
+West,Home Office,Furnishings,1572.72
+West,Corporate,Furnishings,1673.4
+West,Consumer,Furnishings,4395.15
+South,Home Office,Furnishings,397.56
+South,Corporate,Furnishings,1087.93
+South,Consumer,Furnishings,1957.19
+East,Home Office,Furnishings,904.04
+East,Corporate,Furnishings,1956.23
+East,Consumer,Furnishings,3021.14
+Central,Home Office,Furnishings,-1242.81
+Central,Corporate,Furnishings,-1209.36
+Central,Consumer,Furnishings,-1454.05
+West,Home Office,Fasteners,20.68
+West,Corporate,Fasteners,69.31
+West,Consumer,Fasteners,185.21
+South,Home Office,Fasteners,31.88
+South,Corporate,Fasteners,27.57
+South,Consumer,Fasteners,114.27
+East,Home Office,Fasteners,38.35
+East,Corporate,Fasteners,76.47
+East,Consumer,Fasteners,149.17
+Central,Home Office,Fasteners,29.91
+Central,Corporate,Fasteners,78.56
+Central,Consumer,Fasteners,128.15
+West,Home Office,Envelopes,161.72
+West,Corporate,Envelopes,780.6
+West,Consumer,Envelopes,966.44
+South,Home Office,Envelopes,318.67
+South,Corporate,Envelopes,643.38
+South,Consumer,Envelopes,503.43
+East,Home Office,Envelopes,266.94
+East,Corporate,Envelopes,663.59
+East,Consumer,Envelopes,881.88
+Central,Home Office,Envelopes,381.2
+Central,Corporate,Envelopes,483.66
+Central,Consumer,Envelopes,912.66
+West,Home Office,Copiers,3977.93
+West,Corporate,Copiers,3190.44
+West,Consumer,Copiers,12158.87
+South,Corporate,Copiers,1874.96
+South,Consumer,Copiers,1783.95
+East,Home Office,Copiers,7229.93
+East,Corporate,Copiers,1134.98
+East,Consumer,Copiers,8657.93
+Central,Home Office,Copiers,1335.98
+Central,Corporate,Copiers,12789.9
+Central,Consumer,Copiers,1482.96
+West,Home Office,Chairs,1414.35
+West,Corporate,Chairs,1233.23
+West,Consumer,Chairs,1380.0
+South,Home Office,Chairs,1411.1
+South,Corporate,Chairs,1183.95
+South,Consumer,Chairs,4017.03
+East,Home Office,Chairs,1719.79
+East,Corporate,Chairs,2720.59
+East,Consumer,Chairs,4917.4
+Central,Home Office,Chairs,464.94
+Central,Corporate,Chairs,3206.88
+Central,Consumer,Chairs,2920.9
+West,Home Office,Bookcases,332.11
+West,Corporate,Bookcases,-12.17
+West,Consumer,Bookcases,-1966.46
+South,Home Office,Bookcases,51.11
+South,Corporate,Bookcases,68.37
+South,Consumer,Bookcases,1220.01
+East,Home Office,Bookcases,59.47
+East,Corporate,Bookcases,964.96
+East,Consumer,Bookcases,-2192.07
+Central,Home Office,Bookcases,-118.07
+Central,Corporate,Bookcases,-382.71
+Central,Consumer,Bookcases,-1497.13
+West,Home Office,Binders,2789.58
+West,Corporate,Binders,5468.54
+West,Consumer,Binders,7838.68
+South,Home Office,Binders,-179.46
+South,Corporate,Binders,2496.2
+South,Consumer,Binders,1583.93
+East,Home Office,Binders,1694.26
+East,Corporate,Binders,2833.0
+East,Consumer,Binders,6740.67
+Central,Home Office,Binders,1544.47
+Central,Corporate,Binders,-4420.42
+Central,Consumer,Binders,1832.32
+West,Home Office,Art,332.62
+West,Corporate,Art,830.25
+West,Consumer,Art,1211.22
+South,Home Office,Art,145.88
+South,Corporate,Art,264.25
+South,Consumer,Art,648.45
+East,Home Office,Art,344.71
+East,Corporate,Art,566.17
+East,Consumer,Art,989.06
+Central,Home Office,Art,245.63
+Central,Corporate,Art,343.97
+Central,Consumer,Art,605.56
+West,Home Office,Appliances,1229.74
+West,Corporate,Appliances,2738.02
+West,Consumer,Appliances,4293.51
+South,Home Office,Appliances,124.85
+South,Corporate,Appliances,2543.82
+South,Consumer,Appliances,1455.26
+East,Home Office,Appliances,775.37
+East,Corporate,Appliances,2607.29
+East,Consumer,Appliances,5008.76
+Central,Home Office,Appliances,1596.22
+Central,Corporate,Appliances,-459.23
+Central,Consumer,Appliances,-3775.61
+West,Home Office,Accessories,2294.97
+West,Corporate,Accessories,5225.48
+West,Consumer,Accessories,8964.15
+South,Home Office,Accessories,1130.76
+South,Corporate,Accessories,3085.48
+South,Consumer,Accessories,2788.31
+East,Home Office,Accessories,3022.2
+East,Corporate,Accessories,2933.59
+East,Consumer,Accessories,5240.08
+Central,Home Office,Accessories,2045.31
+Central,Corporate,Accessories,1462.93
+Central,Consumer,Accessories,3743.39

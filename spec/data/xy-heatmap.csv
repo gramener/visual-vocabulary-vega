@@ -1,0 +1,50 @@
+Age Range,Savings Amount,Response Rate
+65+,"$10,000 or more",20.0
+55-64,"$10,000 or more",16.8
+45-54,"$10,000 or more",16.2
+35-44,"$10,000 or more",16.0
+25-34,"$10,000 or more",12.1
+18-24,"$10,000 or more",7.5
+Overall,"$10,000 or more",14.0
+65+,"$5,000-$9,999",4.7
+55-64,"$5,000-$9,999",4.8
+45-54,"$5,000-$9,999",5.2
+35-44,"$5,000-$9,999",5.6
+25-34,"$5,000-$9,999",5.4
+18-24,"$5,000-$9,999",4.7
+Overall,"$5,000-$9,999",5.0
+65+,"$1,000-$4,999",7.2
+55-64,"$1,000-$4,999",8.0
+45-54,"$1,000-$4,999",7.5
+35-44,"$1,000-$4,999",9.8
+25-34,"$1,000-$4,999",12.5
+18-24,"$1,000-$4,999",14.7
+Overall,"$1,000-$4,999",10.0
+65+,"Less than $1,000",8.2
+55-64,"Less than $1,000",10.7
+45-54,"Less than $1,000",10.9
+35-44,"Less than $1,000",11.6
+25-34,"Less than $1,000",15.2
+18-24,"Less than $1,000",19.1
+Overall,"Less than $1,000",13.0
+65+,Just the minimum balance requirement,10.7
+55-64,Just the minimum balance requirement,8.4
+45-54,Just the minimum balance requirement,7.7
+35-44,Just the minimum balance requirement,6.6
+25-34,Just the minimum balance requirement,10.6
+18-24,Just the minimum balance requirement,9.7
+Overall,Just the minimum balance requirement,9.0
+65+,$0,27.6
+55-64,$0,28.4
+45-54,$0,30.8
+35-44,$0,31.6
+25-34,$0,26.3
+18-24,$0,21.8
+Overall,$0,28.0
+65+,I don't have a savings account,21.6
+55-64,I don't have a savings account,22.8
+45-54,I don't have a savings account,21.6
+35-44,I don't have a savings account,18.9
+25-34,I don't have a savings account,18.0
+18-24,I don't have a savings account,22.4
+Overall,I don't have a savings account,21.0

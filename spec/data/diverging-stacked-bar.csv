@@ -1,0 +1,46 @@
+type,question,percentage,_1
+Not at all,Has grace under pressure,0.021531099999999997,0
+Not at all,Makes good coffee,0.021479714,0
+Not at all,Likes the Beatles,0.019138756,0
+Not at all,Is Kind to animals,0.028985507,0
+Not at all,Can Play Jazz,0.028776978,0
+Not at all,Good Sense of Humor,0.019138756,0
+Not at all,Good Job Skills,0.021479714,0
+Not at all,Good Ability to lift heavy objects,0.023923445,0
+Not at all,High Intelligence,0.14354067,0
+Small degree,High Intelligence,0.263157895,1
+Small degree,Makes good coffee,0.071599045,1
+Small degree,Likes the Beatles,0.050239234,1
+Small degree,Is Kind to animals,0.125603865,1
+Small degree,Has grace under pressure,0.033492823,1
+Small degree,Good Job Skills,0.052505967,1
+Small degree,Can Play Jazz,0.059952038,1
+Small degree,Good Ability to lift heavy objects,0.07416267900000001,1
+Small degree,Good Sense of Humor,0.06459330099999999,1
+Moderate Degree,Likes the Beatles,0.26555024,2
+Moderate Degree,Has grace under pressure,0.21291866,2
+Moderate Degree,High Intelligence,0.394736842,2
+Moderate Degree,Is Kind to animals,0.352657004,2
+Moderate Degree,Makes good coffee,0.219570406,2
+Moderate Degree,Can Play Jazz,0.24940048,2
+Moderate Degree,Good Sense of Humor,0.246411484,2
+Moderate Degree,Good Ability to lift heavy objects,0.325358852,2
+Moderate Degree,Good Job Skills,0.200477326,2
+High Degree,Good Ability to lift heavy objects,0.122009569,3
+High Degree,High Intelligence,0.038277512,3
+High Degree,Makes good coffee,0.248210024,3
+High Degree,Can Play Jazz,0.24940048,3
+High Degree,Is Kind to animals,0.099033816,3
+High Degree,Good Job Skills,0.21479713600000006,3
+High Degree,Good Sense of Humor,0.169856459,3
+High Degree,Has grace under pressure,0.234449761,3
+High Degree,Likes the Beatles,0.14354067,3
+Very High Degree,Can Play Jazz,0.412470024,4
+Very High Degree,Good Ability to lift heavy objects,0.454545455,4
+Very High Degree,Good Job Skills,0.510739857,4
+Very High Degree,Good Sense of Humor,0.5,4
+Very High Degree,Has grace under pressure,0.497607656,4
+Very High Degree,High Intelligence,0.160287081,4
+Very High Degree,Is Kind to animals,0.393719807,4
+Very High Degree,Likes the Beatles,0.5215310999999999,4
+Very High Degree,Makes good coffee,0.439140811,4

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "todo",
+  "title": "Grouped symbol",
+  "width": 400,
+  "height": 250,
+  "padding": 5,
+  "autosize": {"type": "fit", "contains": "padding"},
+
+  "signals": [
+    {"name": "arraysize", "value": 6}
+  ],
+
+  "data": [
+    {
+      "name": "source",
+      "values": [
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "sheep"},
+        {"country": "Great Britain", "category": "pigs"},
+        {"country": "Great Britain", "category": "pigs"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "sheep"},
+        {"country": "United States", "category": "pigs"},
+        {"country": "United States", "category": "pigs"},
+        {"country": "United States", "category": "pigs"},
+        {"country": "United States", "category": "pigs"}
+      ]
+    },
+    {
+      "name": "data",
+      "source": "source",
+      "transform": [
+        {
+          "type": "window",
+          "params": [null],
+          "as": ["rank"],
+          "ops": ["rank"],
+          "fields": [null],
+          "sort": {"field": [], "order": []},
+          "groupby": ["country"]
+        },
+        {"type": "formula", "expr": "ceil(datum.rank/arraysize)", "as": "_row"},
+        {"type": "formula", "expr": "datum.rank - datum._row*arraysize", "as": "_col"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "point",
+      "domain": {"data": "data", "field": "_col"},
+      "range": "width",
+      "padding": 0.5
+    },
+    {
+      "name": "yscale",
+      "type": "band",
+      "range": "height",
+      "domain": {"data": "data", "field": "country"}
+    }
+  ],
+
+  "axes": [
+    {"orient": "left", "scale": "yscale"}
+  ],
+
+  "marks": [
+    {
+      "name": "cell",
+      "type": "group",
+      "from": {
+        "facet": {"name": "facet", "data": "data", "groupby": ["country"]}
+      },
+      "encode": {
+        "enter": {
+          "yc": {"scale": "yscale", "field": "country"}
+        }
+      },
+      "scales": [
+        {
+          "name": "yinside",
+          "type": "point",
+          "domain": {"data": "data", "field": "_row"},
+          "range": [0, {"signal": "bandwidth('yscale')"}],
+          "padding": 0.5
+        }
+      ],
+      "marks": [
+        {
+          "name": "child_marks",
+          "type": "symbol",
+          "from": {"data": "facet"},
+          "encode": {
+            "update": {
+              "shape": { "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z" },
+              "fill": [
+                {"test": "datum.category == 'pigs'", "value": "#ffffff"},
+                {"value": "#8f3278"}],
+              "stroke": {"value": "#8f3278"},
+              "size": {"value": 70},
+              "x": {"scale": "xscale", "field": "_col"},
+              "y": {"scale": "yinside", "field": "_row"},
+              "tooltip": { "signal": "datum" }
+            }
+          }
+        }
+      ]
+    }
+  ]
+
+}
