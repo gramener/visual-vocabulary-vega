@@ -1,14 +1,8 @@
 @import url("bootstraptheme.css");
 
-.box {
-  border: 1px solid #dddddd;
-  resize: both;
-}
+.box { border: 1px solid #dddddd; }
 .scrollbar { overflow: auto; }
-.scrollbar::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
+.scrollbar::-webkit-scrollbar { width: 4px;height: 4px; }
 .scrollbar::-webkit-scrollbar-thumb {
   border-radius: 4px;
   border: 1px solid white;

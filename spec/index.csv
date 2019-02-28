@@ -11,7 +11,7 @@ row,type,id,name,desc
 2,Correlation,xy-heatmap,X Y Heatmap,"A good way of showing the patterns between 2 categories of data, less good at showing fine differences in amounts"
 1,Ranking,ordered-bar,Ordered bar,"Standard bar charts display the ranks of values much more easily when sorted into order"
 1,Ranking,ordered-column,Ordered column,See before
-1,Ranking,ordered-proportional-symbol,Ordered proportional symbol,"Use when there are big variations between values and/or seeing fine dierences between data is not so important."
+1,Ranking,ordered-proportional-symbol,Ordered proportional symbol,"Use when there are big variations between values and/or seeing fine differences between data is not so important."
 2,Ranking,dot-strip-plot,Dot strip plot,"Dots placed in order on a strip are a space-efficient method of laying out ranks across multiple categories."
 2,Ranking,slope,Slope,Perfect for showing how ranks have changed over time or vary between categories.
 3,Ranking,lollipop,Lollipop,Lollipop charts draw more attention to the data value than standard bar/column and can also show rank effectively
