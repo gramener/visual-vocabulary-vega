@@ -18,8 +18,7 @@
   "signals": [
     {
       "name": "spec_values",
-      "value": {"y": "Sub-Category", "x": "Profit Ratio"},
-      "_comment": ">: Profit Ratio"
+      "value": {"y": "Sub-Category", "x": "Profit Ratio"}
     }
   ],
 
@@ -43,9 +42,9 @@
     },
     {
       "name": "colorscale",
-      "type": "sequential",
-      "domain": [-45, 0, 45],
-      "range": ["#dea221", "#dda732", "#ddac43", "#dcb154", "#dcb664", "#dbbb75", "#dbc086", "#dac597", "#dacaa7", "#d9cfb8", "#d9d4c8", "#d9d9d9", "#c2cfd3", "#acc5ce", "#97bcc8", "#83b3c3", "#6fabbe", "#5da2b8", "#4c9ab3", "#3b92ae", "#2b8aa8", "#1c82a3", "#0f7b9e"]
+      "type": "linear",
+      "domain": [-25, 0, 45],
+      "range": ["#DCB86D", "#C1CFD3", "#0F7B9E"]
     }
   ],
 
