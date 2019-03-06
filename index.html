@@ -42,10 +42,12 @@
         <div class="col-12 col-md-7">
           <h2>Visual Vocabulary<span class="sm3"> - Vega Edition</span></h2>
         </div>
-        <div class="col-12 col-md-5 d-md-block d-none sm1 text-muted text-right">
-          <p class="mb-0">Inspired by Financial Times's
+        <div class="col-12 col-md-5 sm1 text-muted text-right">
+          <%= APP.T.social({APP}) %>
+          <p class="d-md-block d-none mb-0">Inspired by Financial Times's
             <a class="font-weight-bold text-muted" href="https://ft.com/vocabulary">Visual Vocabulary<a> &
             <a class="font-weight-bold text-muted" href="http://www.vizwiz.com/2018/07/visual-vocabulary.html">Andy Kriebel's ft.</a>
+          </p>
           <p class="font-weight-bold">Click any section below to view the charts</p>
         </div>
       </div>
@@ -66,7 +68,7 @@
 
   <script class="panel" type="text/html">
     <%= APP.T.header({APP}) %>
-    <div class="container-fluid">
+    <div class="container-fluid position-relative">
     <% var filter = (APP.path=='FullList')?{}:{type: APP.path} %>
     <% var metas = _.filter(APP.data.indexlist, filter) %>
     <% _.each(metas, meta => { %>
@@ -91,6 +93,8 @@
     <% }) %>
     <% if (APP.path == 'FullList') { %>
       <%= APP.T.credit({APP}) %>
+    <% } else { %>
+      <div class="float-right mb-1"><%= APP.T.social({APP}) %></div>
     <% } %>
     </div>
   </script>
@@ -122,8 +126,26 @@
         <div><a class="text-muted" href="https://twitter.com/VizWizBI">Andy Kriebel | @VizWizBI (design / data)</a></div>
         <div>FT Graphics: <span class="sm1">Alan Smith; Chris Campbell; Ian Bott; Liz Faunce; Graham Parrish; Billy Ehrenberg-Shannon; Paul McCallum; Martin Stabe</span></div>
         <div>Visual Vocabulary: ft.com/vocabulary</div>
+        <%= APP.T.social({APP}) %>
       </div>
     </div>
+  </script>
+
+  <script class="social" type="text/html">
+  <% var url = encodeURI('https://gramener.github.io/visual-vocabulary-vega/') %>
+  <% var text = encodeURI('There are many ways to visualize data - how do we know which one to pick? \nVisual Vocabulary - Vega Edition helps you pick one! ') %>
+  <% var size = 16 %>
+  <div>
+    <a href="https://twitter.com/intent/tweet?url=<%= url %>&text=<%= text %>%20via%20@Gramener%20@pratapvardhan&hashtags=dataviz" class="text-decoration-none" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="<%= size %>" height="<%= size %>" viewBox="0 0 24 24" style=" fill:#000000;"><path d="M 24 4.300781 C 23.101563 4.699219 22.199219 5 21.199219 5.101563 C 22.199219 4.5 23 3.5 23.398438 2.398438 C 22.398438 3 21.398438 3.398438 20.300781 3.601563 C 19.300781 2.601563 18 2 16.601563 2 C 13.898438 2 11.699219 4.199219 11.699219 6.898438 C 11.699219 7.300781 11.699219 7.699219 11.800781 8 C 7.699219 7.800781 4.101563 5.898438 1.699219 2.898438 C 1.199219 3.601563 1 4.5 1 5.398438 C 1 7.101563 1.898438 8.601563 3.199219 9.5 C 2.398438 9.398438 1.601563 9.199219 1 8.898438 C 1 8.898438 1 8.898438 1 9 C 1 11.398438 2.699219 13.398438 4.898438 13.800781 C 4.5 13.898438 4.101563 14 3.601563 14 C 3.300781 14 3 14 2.699219 13.898438 C 3.300781 15.898438 5.101563 17.300781 7.300781 17.300781 C 5.601563 18.601563 3.5 19.398438 1.199219 19.398438 C 0.800781 19.398438 0.398438 19.398438 0 19.300781 C 2.199219 20.699219 4.800781 21.5 7.5 21.5 C 16.601563 21.5 21.5 14 21.5 7.5 C 21.5 7.300781 21.5 7.101563 21.5 6.898438 C 22.5 6.199219 23.300781 5.300781 24 4.300781 "></path></svg>
+     </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=<%= url %>" class="text-decoration-none" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="<%= size %>" height="<%= size %>" viewBox="0 0 24 24" style=" fill:#000000;"><path d="M19,3H5C3.895,3,3,3.895,3,5v14c0,1.105,0.895,2,2,2h7.621v-6.961h-2.343v-2.725h2.343V9.309 c0-2.324,1.421-3.591,3.495-3.591c0.699-0.002,1.397,0.034,2.092,0.105v2.43h-1.428c-1.13,0-1.35,0.534-1.35,1.322v1.735h2.7 l-0.351,2.725h-2.365V21H19c1.105,0,2-0.895,2-2V5C21,3.895,20.105,3,19,3z"></path></svg>
+     </a>
+     <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= url %>&title=<%= text %>" class="text-decoration-none" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="<%= size %>" height="<%= size %>" viewBox="0 0 24 24" style=" fill:#000000;"><path d="M19,3H5C3.895,3,3,3.895,3,5v14c0,1.105,0.895,2,2,2h14c1.105,0,2-0.895,2-2V5C21,3.895,20.105,3,19,3z M9,17H6.477v-7H9 V17z M7.694,8.717c-0.771,0-1.286-0.514-1.286-1.2s0.514-1.2,1.371-1.2c0.771,0,1.286,0.514,1.286,1.2S8.551,8.717,7.694,8.717z M18,17h-2.442v-3.826c0-1.058-0.651-1.302-0.895-1.302s-1.058,0.163-1.058,1.302c0,0.163,0,3.826,0,3.826h-2.523v-7h2.523v0.977 C13.93,10.407,14.581,10,15.802,10C17.023,10,18,10.977,18,13.174V17z"></path></svg>
+     </a>
+  </div>
   </script>
   <!-- templates -->
   <script src="https://cdn.jsdelivr.net/npm/underscore@1.9.1/underscore.min.js"></script>
