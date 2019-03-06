@@ -1,49 +1,49 @@
 Date,Sales,Category
-2015 Mar,22656.139,Furniture
-2015 Mar,14528.683,Office Supplies
-2015 Mar,37262.974,Technology
-2015 Jun,28063.7496,Furniture
-2015 Jun,31243.735,Office Supplies
-2015 Jun,27231.275,Technology
-2015 Sep,41957.8783,Furniture
-2015 Sep,53923.968,Office Supplies
-2015 Sep,47751.366,Technology
-2015 Dec,64515.0862,Furniture
-2015 Dec,52080.026,Office Supplies
-2015 Dec,63032.618,Technology
-2016 Mar,27374.0986,Furniture
-2016 Mar,23059.394,Office Supplies
-2016 Mar,18418.246,Technology
-2016 Jun,27564.828,Furniture
-2016 Jun,32320.041,Office Supplies
-2016 Jun,29239.318,Technology
-2016 Sep,49586.0352,Furniture
-2016 Sep,35760.814,Office Supplies
-2016 Sep,44912.726,Technology
-2016 Dec,65993.2752,Furniture
-2016 Dec,46093.214,Office Supplies
-2016 Dec,70210.519,Technology
-2017 Mar,24349.386,Furniture
-2017 Mar,29440.963,Office Supplies
-2017 Mar,39446.832,Technology
-2017 Jun,41402.497,Furniture
-2017 Jun,34584.459,Office Supplies
-2017 Jun,60095.345,Technology
-2017 Sep,52814.6322,Furniture
-2017 Sep,45147.922,Office Supplies
-2017 Sep,45824.808,Technology
-2017 Dec,80334.9208,Furniture
-2017 Dec,74766.638,Office Supplies
-2017 Dec,80997.195,Technology
-2018 Mar,23723.8142,Furniture
-2018 Mar,43232.347,Office Supplies
-2018 Mar,56188.699,Technology
-2018 Jun,45032.103,Furniture
-2018 Jun,45721.194,Office Supplies
-2018 Jun,43011.075,Technology
-2018 Sep,56283.102,Furniture
-2018 Sep,72197.163,Office Supplies
-2018 Sep,67771.691,Technology
-2018 Dec,90348.25,Furniture
-2018 Dec,84946.471,Office Supplies
-2018 Dec,104759.346,Technology
+2015-03-01,22656.139,Furniture
+2015-03-01,14528.683,Office Supplies
+2015-03-01,37262.974,Technology
+2015-06-01,28063.7496,Furniture
+2015-06-01,31243.735,Office Supplies
+2015-06-01,27231.275,Technology
+2015-09-01,41957.8783,Furniture
+2015-09-01,53923.968,Office Supplies
+2015-09-01,47751.366,Technology
+2015-12-01,64515.0862,Furniture
+2015-12-01,52080.026,Office Supplies
+2015-12-01,63032.618,Technology
+2016-03-01,27374.0986,Furniture
+2016-03-01,23059.394,Office Supplies
+2016-03-01,18418.246,Technology
+2016-06-01,27564.828,Furniture
+2016-06-01,32320.041,Office Supplies
+2016-06-01,29239.318,Technology
+2016-09-01,49586.0352,Furniture
+2016-09-01,35760.814,Office Supplies
+2016-09-01,44912.726,Technology
+2016-12-01,65993.2752,Furniture
+2016-12-01,46093.214,Office Supplies
+2016-12-01,70210.519,Technology
+2017-03-01,24349.386,Furniture
+2017-03-01,29440.963,Office Supplies
+2017-03-01,39446.832,Technology
+2017-06-01,41402.497,Furniture
+2017-06-01,34584.459,Office Supplies
+2017-06-01,60095.345,Technology
+2017-09-01,52814.6322,Furniture
+2017-09-01,45147.922,Office Supplies
+2017-09-01,45824.808,Technology
+2017-12-01,80334.9208,Furniture
+2017-12-01,74766.638,Office Supplies
+2017-12-01,80997.195,Technology
+2018-03-01,23723.8142,Furniture
+2018-03-01,43232.347,Office Supplies
+2018-03-01,56188.699,Technology
+2018-06-01,45032.103,Furniture
+2018-06-01,45721.194,Office Supplies
+2018-06-01,43011.075,Technology
+2018-09-01,56283.102,Furniture
+2018-09-01,72197.163,Office Supplies
+2018-09-01,67771.691,Technology
+2018-12-01,90348.25,Furniture
+2018-12-01,84946.471,Office Supplies
+2018-12-01,104759.346,Technology
