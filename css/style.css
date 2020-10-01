@@ -1,6 +1,6 @@
 @import url("bootstraptheme.css");
 
-.box { border: 1px solid #dddddd; }
+.box { border: 1px solid ##dce0f5; }
 .scrollbar { overflow: auto; }
 .scrollbar::-webkit-scrollbar { width: 4px;height: 4px; }
 .scrollbar::-webkit-scrollbar-thumb {
@@ -20,7 +20,7 @@
   animation-iteration-count: infinite;
   animation-name: placeHolderShimmer;
   animation-timing-function: linear;
-  background: #f6f7f8;
+  background: #dce0f5;
   background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
   background-size: 800px 104px;
   height: 96px;
